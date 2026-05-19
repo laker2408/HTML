@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SMART LOGGER – Product Changelog</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",sans-serif;background:#f5f7fa;color:#2c3e50;padding:40px 20px;line-height:1.6;}
+.container{max-width:1200px;margin:0 auto;}
+.nav-bar{background:white;padding:12px 20px;border-radius:8px;margin-bottom:20px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.nav-bar a{padding:6px 14px;border-radius:16px;text-decoration:none;color:#1F4E78;font-size:13px;font-weight:600;border:1px solid #d0d7de;transition:all 0.2s;}
+.nav-bar a:hover{background:#f0f4f8;}
+.nav-bar a.current{background:#2E75B6;color:white;border-color:#2E75B6;}
+.nav-bar .nav-label{font-weight:600;color:#555;margin-right:4px;}
+.header{text-align:center;margin-bottom:40px;padding:30px;background:linear-gradient(135deg,#1F4E78 0%,#2E75B6 100%);color:white;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.header h1{font-size:32px;margin-bottom:8px;}
+.header .subtitle{font-size:14px;opacity:0.9;}
+.stats{display:flex;justify-content:center;gap:30px;margin-top:16px;font-size:14px;flex-wrap:wrap;}
+.filter-bar{background:white;padding:16px 20px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.filter-bar .label{font-weight:600;margin-right:8px;color:#555;}
+.filter-btn{padding:6px 14px;border:1px solid #d0d7de;background:white;border-radius:16px;cursor:pointer;font-size:13px;transition:all 0.2s;}
+.filter-btn:hover{background:#f0f4f8;}
+.filter-btn.active{background:#2E75B6;color:white;border-color:#2E75B6;}
+.timeline{position:relative;padding:20px 0;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#2E75B6 0%,#1F4E78 100%);transform:translateX(-50%);border-radius:2px;}
+.timeline-item{position:relative;width:50%;padding:12px 30px;}
+.timeline-item.left{left:0;}
+.timeline-item.right{left:50%;}
+.timeline-item.hidden{display:none;}
+.timeline-dot{position:absolute;top:28px;width:16px;height:16px;background:white;border:3px solid #2E75B6;border-radius:50%;z-index:2;}
+.timeline-item.left .timeline-dot{right:-8px;}
+.timeline-item.right .timeline-dot{left:-8px;}
+.timeline-card{background:white;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.08);overflow:hidden;transition:box-shadow 0.2s;}
+.timeline-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.12);}
+.card-header{background:linear-gradient(135deg,#1F4E78 0%,#2E75B6 100%);color:white;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.card-header-left{display:flex;flex-direction:column;gap:2px;}
+.card-date{font-size:12px;opacity:0.85;}
+.card-product{font-size:15px;font-weight:600;}
+.card-header-right{display:flex;align-items:center;gap:6px;}
+.version-badge{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;}
+.version-badge.old{background:rgba(255,255,255,0.2);}
+.version-badge.new{background:white;color:#1F4E78;}
+.version-arrow{font-size:16px;opacity:0.8;}
+.card-toggle{font-size:12px;margin-left:6px;transition:transform 0.2s;}
+.timeline-card.collapsed .card-toggle{transform:rotate(-90deg);}
+.timeline-card.collapsed .card-body{display:none;}
+.card-body{padding:16px;}
+.change-tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid #e1e4e8;}
+.tab-btn{padding:6px 14px;border:none;background:transparent;cursor:pointer;font-size:13px;color:#586069;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.tab-btn.active{color:#2E75B6;border-bottom-color:#2E75B6;font-weight:600;}
+.change-content{display:none;padding:10px 12px;background:#f6f8fa;border-left:3px solid #2E75B6;border-radius:4px;}
+.change-content.active{display:block;}
+.change-text{font-size:13px;color:#2c3e50;}
+@media (max-width:768px){
+  body{padding:20px 10px;}
+  .timeline::before{left:16px;}
+  .timeline-item{width:100%;left:0 !important;padding:8px 0 8px 40px;}
+  .timeline-item .timeline-dot{left:8px !important;right:auto !important;}
+  .header h1{font-size:22px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="nav-bar">
+    <span class="nav-label">Products:</span>
+    <a href="H3PRO.html" >H3 PRO</a>
+    <a href="H3SMART.html" >H3 SMART</a>
+    <a href="SMARTLOGGER.html" class="current">SMART LOGGER</a>
+    <a href="EQ.html" >EQ</a>
+  </div>
+  <div class="header">
+    <h1>SMART LOGGER Changelog</h1>
+    <div class="subtitle">Product Changelog Timeline</div>
+    <div class="stats">
+      <div>📋 Total <strong>5</strong> records</div>
+      <div>📅 2025-11-10 ~ 2026-01-30</div>
+    </div>
+  </div>
+  <div class="filter-bar">
+    <span class="label">Filter:</span>
+    <button class="filter-btn active" onclick="filterProduct(this,'all')">All</button><button class="filter-btn" onclick="filterProduct(this,'Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Master')">Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Master</button><button class="filter-btn" onclick="filterProduct(this,'Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Slave')">Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Slave</button>
+  </div>
+  <div class="timeline" id="timeline">
+    
+    <div class="timeline-item left" data-product="Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-01-30</div>
+            <div class="card-product">Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.13</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.14</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added dynamic reactive power adjustment, supporting GMAX models.<br>2. Added support for local web interface upgrades.<br>3. Added support for weather station integration.<br>4. Added support for Vietnam TCP communication protocol.<br>5. Fixed the H3 Pro SOC display issue.<br>6. Fixed device status display issues.<br>7. Optimized device recognition and overall system stability.<br>8. Improved data reporting stability.<br>9. Added Ripple Control functionality.</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">1. Added reactive power adjustment control supporting GMAX model.<br>2. Added support for web interface firmware upgrade.<br>3. Integrated weather station data monitoring to collect environmental data.<br>4. Added Vietnam TCP communication protocol to meet project requirements.<br>5.Fixed the H3-Pro SOC display issue.<br>6. Fixed device status display issues.<br>7. Optimized different identification and improved operational reliability.<br>8. Improved data reporting stability to ensure consistent data trasmission.<br>9. Added Ripple Control functionality.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Slave">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-01-30</div>
+            <div class="card-product">Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Slave</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.02</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.03</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Optimized feedback signal to improve device operational stability.</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">3.  Added compatibility support for WEG 04 Meter.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-12-10</div>
+            <div class="card-product">Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.12</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.13</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1.  Added STS mode.<br>2.  Added grid-connected/off-grid start under 60Hz grid.<br>3.  Added compatibility support for WEG 04 Meter.<br>4.  Improved off-grid performance.<br>5.  Added low SOC protection.<br>6.  Added adjustable off-grid to grid-connected transition time.<br>7.  Fixed known bugs.<br>8.  Support for displaying customized models on the Neutral Box.</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">1.  Added STS mode, allowing fast on/off grid switch.<br>2.  Enabled system start up for 60Hz grid-connected and off-grid situation.<br>3.  Added supported meter: WEG 04 Meter. <br>4.  Improved off-grid performance.<br>5.  Implemented low SOC protection logic for better battery perofrmance monitoring.<br>6.  Implemented adjustable transition time for off-grid to on-grid connection to provide flexibility for different project requriement.<br>7.  Fixed known bugs.<br>8.  Supported displaying customized models on the white label version. </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Slave">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-12-10</div>
+            <div class="card-product">Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Slave</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.01</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.02</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added STS fuctionality</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">2.  Added grid-connected/off-grid start under 60Hz grid.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-11-10</div>
+            <div class="card-product">Smart Logger&amp;Smart logBox-A&amp;A-1000-VB_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.10</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.12</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Power control supported models: Gmax, T, H3pro, H3 smart, R, V  <br>2. Support self-consumption logic and peak shaving function  <br>3. Support scheduled feed-in power control  <br>4. Support scheduled charge/discharge control</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">1. Added supported models: Gmax, T, H3pro, H3 smart, R, V  <br>2. Implemented self-consumption logic and peak shaving function.<br>3. Implemented scheduled feed-in power control. <br>4. Implemented scheduled charge/discharge control.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function toggleCard(h){h.parentElement.classList.toggle('collapsed');}
+function switchTab(btn,type){
+  const tabs=btn.parentElement;const sec=tabs.parentElement;
+  tabs.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  sec.querySelectorAll('.change-content').forEach(c=>c.classList.remove('active'));
+  sec.querySelector('.change-content.'+type).classList.add('active');
+}
+function filterProduct(btn,product){
+  document.querySelectorAll('.filter-bar .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.timeline-item').forEach(it=>{
+    if(product==='all'||it.dataset.product===product) it.classList.remove('hidden');
+    else it.classList.add('hidden');
+  });
+  let i=0;document.querySelectorAll('.timeline-item:not(.hidden)').forEach(it=>{
+    it.classList.remove('left','right');it.classList.add(i%2===0?'left':'right');i++;
+  });
+}
+document.querySelectorAll('.timeline-card').forEach((c,i)=>{if(i>=3)c.classList.add('collapsed');});
+</script>
+</body>
+</html>
