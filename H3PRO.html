@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>H3 Pro - 产品更新日志</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f7fa; color: #2c3e50; padding: 40px 20px; line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #1F4E78 0%, #2E75B6 100%); color: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.header h1 { font-size: 32px; margin-bottom: 8px; }
+.header .subtitle { font-size: 14px; opacity: 0.9; }
+.stats { display: flex; justify-content: center; gap: 30px; margin-top: 16px; font-size: 14px; }
+.filter-bar { background: white; padding: 16px 20px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filter-bar .label { font-weight: 600; margin-right: 8px; color: #555; }
+.filter-btn { padding: 6px 14px; border: 1px solid #d0d7de; background: white; border-radius: 16px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+.filter-btn:hover { background: #f0f4f8; }
+.filter-btn.active { background: #2E75B6; color: white; border-color: #2E75B6; }
+.timeline { position: relative; padding: 20px 0; }
+.timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #2E75B6 0%, #1F4E78 100%); transform: translateX(-50%); border-radius: 2px; }
+.timeline-item { position: relative; width: 50%; padding: 12px 30px; }
+.timeline-item.left { left: 0; }
+.timeline-item.right { left: 50%; }
+.timeline-item.hidden { display: none; }
+.timeline-dot { position: absolute; top: 28px; width: 16px; height: 16px; background: white; border: 3px solid #2E75B6; border-radius: 50%; z-index: 2; }
+.timeline-item.left .timeline-dot { right: -8px; }
+.timeline-item.right .timeline-dot { left: -8px; }
+.timeline-card { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; transition: all 0.3s; }
+.timeline-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.card-header { padding: 14px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #fafbfc; border-bottom: 1px solid #eaedf0; gap: 12px; flex-wrap: wrap; }
+.card-header-left { display: flex; flex-direction: column; gap: 2px; }
+.card-date { font-size: 12px; color: #6a737d; }
+.card-product { font-weight: 600; font-size: 15px; color: #1F4E78; }
+.card-header-right { display: flex; align-items: center; gap: 6px; }
+.version-badge { padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; font-family: "SF Mono", Consolas, monospace; }
+.version-badge.old { background: #f1f3f5; color: #6a737d; }
+.version-badge.new { background: #d4edda; color: #155724; }
+.version-arrow { color: #adb5bd; font-size: 14px; }
+.card-toggle { color: #6a737d; transition: transform 0.2s; font-size: 10px; margin-left: 4px; }
+.timeline-card.collapsed .card-toggle { transform: rotate(-90deg); }
+.timeline-card.collapsed .card-body { display: none; }
+.card-body { padding: 16px 18px; }
+.meta-row { font-size: 13px; margin-bottom: 6px; color: #555; }
+.meta-label { font-weight: 600; color: #333; }
+.status-done { color: #155724; background: #d4edda; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+.status-wip { color: #856404; background: #fff3cd; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+.change-section { margin-top: 12px; }
+.change-tabs { display: flex; gap: 4px; border-bottom: 2px solid #eaedf0; margin-bottom: 12px; }
+.tab-btn { padding: 8px 14px; border: none; background: transparent; cursor: pointer; font-size: 13px; color: #6a737d; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+.tab-btn:hover { color: #2E75B6; }
+.tab-btn.active { color: #2E75B6; border-bottom-color: #2E75B6; font-weight: 600; }
+.change-content { display: none; }
+.change-content.active { display: block; }
+.lang-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.lang-col { background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 3px solid #2E75B6; }
+.lang-tag { display: inline-block; background: #2E75B6; color: white; padding: 1px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-bottom: 6px; }
+.change-text { font-size: 13px; line-height: 1.7; color: #2c3e50; white-space: pre-wrap; }
+.empty { color: #adb5bd; font-style: italic; }
+@media (max-width: 768px) {
+  .timeline::before { left: 20px; }
+  .timeline-item, .timeline-item.left, .timeline-item.right { width: 100%; left: 0; padding-left: 50px; padding-right: 10px; }
+  .timeline-item.left .timeline-dot, .timeline-item.right .timeline-dot { left: 12px; }
+  .lang-cols { grid-template-columns: 1fr; }
+}
+@media print {
+  body { background: white; padding: 20px; }
+  .filter-bar { display: none; }
+  .timeline-card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+  .timeline-card.collapsed .card-body { display: block !important; }
+  .card-toggle { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>H3 Pro 产品更新日志</h1>
+    <div class="subtitle">Product Changelog Timeline</div>
+    <div class="stats">
+      <div>📋 共 <strong>9</strong> 条记录</div>
+      <div>📅 2025-02-20 ~ 2025-12-09</div>
+    </div>
+  </div>
+  <div class="filter-bar">
+    <span class="label">筛选 Filter:</span>
+    <button class="filter-btn active" onclick="filterProduct(this, 'all')">全部 All</button>
+    <button class="filter-btn" onclick="filterProduct(this, 'H3pro_Manager')">H3pro_Manager</button><button class="filter-btn" onclick="filterProduct(this, 'H3pro_Master')">H3pro_Master</button>
+  </div>
+  <div class="timeline" id="timeline">
+    <div class="timeline-item left" data-product="H3pro_Manager"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-12-09</div><div class="card-product">H3pro_Manager</div></div><div class="card-header-right"><span class="version-badge old">V1.39</span><span class="version-arrow">→</span><span class="version-badge new">V1.44</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.屏幕/网页设置项优化（删除BalanceLoad LogicFirst）<br>2.修复PV开关的远程设置<br>3.新增BMS容量，扩展电池信息显示<br>4.优化并机条件下系统功能触发逻辑<br>5.优化meter2设置disable后数据处理机制<br>6.修复电池识别异常和容量数据传输问题</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Optimized screen and web interface settings by refining certain configuration options to improve usability.<br>2. Fixed remote configuration issue of the PV switch to enhance control reliability.<br>3. Added BMS capacity display and expanded battery information visibility.<br>4. Optimized system function triggering logic under parallel operation conditions to improve operational stability.<br>5. Improved data handling mechanism after disabling Meter2 to ensure data consistency.<br>6. Resolved battery detection anomalies and capacity data transmission issues to enhance communication reliability.</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1. 屏幕/网页设置项优化<br>2. 新增BMS容量，扩展电池信息显示<br>3. 优化并机条件下系统功能触发逻辑<br>4. 优化meter2设置disable后数据处理机制</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Optimized screen and web interface settings display. <br>2. Added BMS capacity and other battery information.<br>3. Optimized system function triggering logic under parallel operation conditions to improve operational stability.<br>4. Improved data handling mechanism after disabling Meter2 to ensure data consistency.</div></div></div></div></div></div></div></div>
+    <div class="timeline-item right" data-product="H3pro_Master"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-09-29</div><div class="card-product">H3pro_Master</div></div><div class="card-header-right"><span class="version-badge old">V1.68</span><span class="version-arrow">→</span><span class="version-badge new">V1.74</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.优化电池管理策略<br>2.开放086(法国)、061~062(澳洲)，063(新西兰)、058(印度)安规<br>3.修复无电池时EPS模式误告警问题<br>4.优化Factory Reset后的相关参数初始化<br>5.提升柴发模式兼容性<br>6.优化EPS模式下相关问题<br>7.提升并机系统稳定性</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Optimized battery management strategy to improve overall system stability and performance.<br>2. Added support for additional grid standards: 086 (France), 061–062 (Australia), 063 (New Zealand), and 058 (India).<br>3. Resolved false alarm issue in EPS mode when operating without a battery.<br>4. Optimized parameter initialization after factory reset to enhance system usability.<br>5. Improved generator mode compatibility for broader application scenarios.<br>6. Enhanced performance in EPS mode to ensure more stable operation.<br>7. Improved stability of parallel systems for more reliable multi-unit operation.</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1. 开放法国、澳洲，新西兰、印度安规<br>2. 提升柴发模式兼容性<br>3. 优化EPS模式下相关问题<br>4. 提升并机系统稳定性</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Added support for additional grid standards: France, Australia, New Zealand, India.<br>2. Improved generator mode compatibility for broader application scenarios.<br>3. Enhanced performance in EPS mode to ensure more stable operation.<br>4. Improved stability of parallel systems for more reliable multi-unit operation.</div></div></div></div></div></div></div></div>
+    <div class="timeline-item left" data-product="H3pro_Manager"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-09-29</div><div class="card-product">H3pro_Manager</div></div><div class="card-header-right"><span class="version-badge old">V1.38</span><span class="version-arrow">→</span><span class="version-badge new">V1.39</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.网页/LCD屏幕新增相关参数设置<br>2.优化Pv数据<br>3.修复BMS的RTC校时功能<br>4.修复意大利安规selftest功能<br>5.修复电池并机充放电累计数据异常问题</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Added related parameter settings on the Web interface and LCD screen.<br>2. Optimized PV data.<br>3. Fixed the RTC time-calibration function for the BMS.<br>4. Fixed the self-test function for the Italian grid standard.<br>5. Fixed abnormal cumulative charge/discharge data in battery parallel systems.</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.网页/LCD屏幕新增相关参数设置<br>2.优化Pv数据<br>3.修复BMS的RTC校时功能<br>4.修复意大利安规selftest功能<br>5.修复电池并机充放电累计数据异常问题</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Added parameter settings on the Web interface and LCD screen.<br>2. Optimized PV data for more optimized control. <br>3. updated the RTC time-calibration function for the BMS.<br>4. Updated the self-test function for the Italian grid standard.<br>5. Updated abnormal cumulative charge/discharge data in parallel battery systems.</div></div></div></div></div></div></div></div>
+    <div class="timeline-item right" data-product="H3pro_Master"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-08-12</div><div class="card-product">H3pro_Master</div></div><div class="card-header-right"><span class="version-badge old">V1.62</span><span class="version-arrow">→</span><span class="version-badge new">V1.68</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.支持无电池时启用EPS功能<br>2.并机系统优化<br>3.奥地利安规(33)开放DRM功能<br>4.高电压保护增强<br>5.优化逆变器检测逻辑<br>6.修复Bus电压不平衡问题<br>7.解决谐振问题<br>8.扩展充电能力至所有工作模式，新增强制放电逻辑<br>9.电网恢复后延时120s自动退出EPS</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Supported enabling the EPS function when no battery is connected.<br>2. Optimized multi-inverter parallel operation.<br>3. Enabled DRM functionality under Austrian regulation (33).<br>4. Enhanced high-voltage protection.<br>5. Optimized inverter detection logic.<br>6. Fixed the bus voltage imbalance issue.<br>7. Resolved resonance issues.<br>8. Expanded charging capability to all operation modes and added a forced discharge logic.<br>9. After grid recovery, the system will automatically exit EPS after a 120-second delay.</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text"><span class="empty">—</span></div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text"><span class="empty">—</span></div></div></div></div></div></div></div></div>
+    <div class="timeline-item left" data-product="H3pro_Manager"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-08-12</div><div class="card-product">H3pro_Manager</div></div><div class="card-header-right"><span class="version-badge old">V1.34</span><span class="version-arrow">→</span><span class="version-badge new">V1.38</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.优化并机电表数据显示<br>2.修复PV界面显示异常问题<br>3.新增奥地利安规下ripple control功能<br>4.电池通信功能优化<br>5.修复内/外置采集器Bug<br>6.扩展第三方电池兼容能力<br>7.Mode Schedule放电功率上限提升至30kw<br>8.优化柴发最大功率控制逻辑<br>9.优化采集器连接稳定性<br>10.Factory Reset后自动清除ModeSchedule数据<br>11.修复个别情况下的误告警或状态显示异常问题</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Optimized multi-inverter meter value display.<br>2. Fixed PV interface display issues.<br>3. Added ripple control function under Austrian regulations.<br>4. Optimized battery communication functionality.<br>5. Fixed bugs related to internal/external data collectors.<br>6. Enhanced compatibility with third-party batteries.<br>7. Increased Mode Schedule discharge power limit to 30 kW.<br>8. Optimized genset (diesel generator) maximum power control logic.<br>9. Improved data collector connection stability.<br>10. Mode Schedule data will now be automatically cleared after Factory Reset.<br>11. Fixed occasional false alarms and incorrect status displays.</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text"><span class="empty">—</span></div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text"><span class="empty">—</span></div></div></div></div></div></div></div></div>
+    <div class="timeline-item right" data-product="H3pro_Master"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-05-07</div><div class="card-product">H3pro_Master</div></div><div class="card-header-right"><span class="version-badge old">V1.58</span><span class="version-arrow">→</span><span class="version-badge new">V1.62</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.新增巴西安规、泰国安规<br>2.优化并机模式下故障检测逻辑<br>3.增加英国G100功能，需匹配ManagerV1.34以上<br>4.EPS功能优化</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Add Brazil and Thailand safety regulations<br>2. Optimize the fault detection logic in parallel mode<br>3. Add G100 functionality in the UK, which needs to be matched with Manager V1.34 or above<br>4. EPS function optimization</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text"><span class="empty">—</span></div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text"><span class="empty">—</span></div></div></div></div></div></div></div></div>
+    <div class="timeline-item left" data-product="H3pro_Manager"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-05-07</div><div class="card-product">H3pro_Manager</div></div><div class="card-header-right"><span class="version-badge old">V1.33</span><span class="version-arrow">→</span><span class="version-badge new">V1.34</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.增加英国G100功能，需匹配MasterV1.62及以上；<br>2.优化流向图显示；<br>3.DRM功能优化；<br>4.modbus协议优化；<br>5.增加mode schedule放电功率最大可以设置为30kw。</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Add the UK G100 function, which needs to be matched with MasterV1.62 or above;<br>2. Optimize the flow chart display;<br>3. DRM function optimization;<br>4. Modbus protocol optimization;<br>5. Increase the mode schedule and set the maximum discharge power to 30kw.</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text"><span class="empty">—</span></div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text"><span class="empty">—</span></div></div></div></div></div></div></div></div>
+    <div class="timeline-item right" data-product="H3pro_Master"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-02-20</div><div class="card-product">H3pro_Master</div></div><div class="card-header-right"><span class="version-badge old">V1.56</span><span class="version-arrow">→</span><span class="version-badge new">V1.58</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.开放importlimit部分模式下的使用限制；<br>2.DRM功能优化；<br>3.新增 RCOF 开关和保护值可设置；<br>4.优化并离网切换时间；<br>5.更新捷克、瑞士安规；<br>6.MPPT 低压追踪下限由 160V 改为 150V；<br>7.开放编号 60(澳洲)、编号 79(意大利)(CEI016)安规。</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Usage restrictions under the open import limit partial mode<br>2. DRM function optimization<br>3. Added RCOF switch and configurable protection values<br>4. Optimized grid-connected/off-grid switching time<br>5. Updated safety regulations for Czech Republic and Switzerland<br>6. MPPT low-voltage tracking lower limit changed from 160V to 150V<br>7. Opened safety regulations for Australia (No. 60) and Italy (No. 79 - CEI016)</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text"><span class="empty">—</span></div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text"><span class="empty">—</span></div></div></div></div></div></div></div></div>
+    <div class="timeline-item left" data-product="H3pro_Manager"><div class="timeline-dot"></div><div class="timeline-card"><div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-date">2025-02-20</div><div class="card-product">H3pro_Manager</div></div><div class="card-header-right"><span class="version-badge old">V1.25</span><span class="version-arrow">→</span><span class="version-badge new">V1.33</span><span class="card-toggle">▼</span></div></div><div class="card-body"><div class="change-section"><div class="change-tabs"><button class="tab-btn active" onclick="switchTab(this, 'ka')">大客户 / KA</button><button class="tab-btn" onclick="switchTab(this, 'cust')">普通客户 / Customer</button></div><div class="change-content ka active"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text">1.增加葡萄牙语词条；<br>2.增加14A功能；<br>3.增加远程频率保护参数设置界面；<br>4.修复modschedule及modbus部分使用问题；<br>5.优化联网通信状态显示；<br>6.修复并机场景下的偶发通讯问题；</div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text">1. Added Portuguese terminology<br>2. Added 14A function<br>3. Added remote frequency protection parameter setting interface<br>4. Fixed usage issues in modschedule and Modbus<br>5. Optimized network communication status display<br>6. Fixed occasional communication issues in parallel operation scenarios</div></div></div></div><div class="change-content cust"><div class="lang-cols"><div class="lang-col"><div class="lang-tag">中</div><div class="change-text"><span class="empty">—</span></div></div><div class="lang-col"><div class="lang-tag">EN</div><div class="change-text"><span class="empty">—</span></div></div></div></div></div></div></div></div>
+  </div>
+</div>
+<script>
+function toggleCard(headerEl) { headerEl.parentElement.classList.toggle('collapsed'); }
+function switchTab(btn, type) {
+  const tabs = btn.parentElement;
+  const section = tabs.parentElement;
+  tabs.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  section.querySelectorAll('.change-content').forEach(c => c.classList.remove('active'));
+  section.querySelector('.change-content.' + type).classList.add('active');
+}
+function filterProduct(btn, product) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    if (product === 'all' || item.dataset.product === product) item.classList.remove('hidden');
+    else item.classList.add('hidden');
+  });
+  let visIdx = 0;
+  document.querySelectorAll('.timeline-item:not(.hidden)').forEach(item => {
+    item.classList.remove('left', 'right');
+    item.classList.add(visIdx % 2 === 0 ? 'left' : 'right');
+    visIdx++;
+  });
+}
+document.querySelectorAll('.timeline-card').forEach((c, i) => { if (i >= 3) c.classList.add('collapsed'); });
+</script>
+</body>
+</html>
