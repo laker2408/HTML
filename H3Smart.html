@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>H3 SMART – Product Changelog</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",sans-serif;background:#f5f7fa;color:#2c3e50;padding:40px 20px;line-height:1.6;}
+.container{max-width:1200px;margin:0 auto;}
+.nav-bar{background:white;padding:12px 20px;border-radius:8px;margin-bottom:20px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.nav-bar a{padding:6px 14px;border-radius:16px;text-decoration:none;color:#1F4E78;font-size:13px;font-weight:600;border:1px solid #d0d7de;transition:all 0.2s;}
+.nav-bar a:hover{background:#f0f4f8;}
+.nav-bar a.current{background:#2E75B6;color:white;border-color:#2E75B6;}
+.nav-bar .nav-label{font-weight:600;color:#555;margin-right:4px;}
+.header{text-align:center;margin-bottom:40px;padding:30px;background:linear-gradient(135deg,#1F4E78 0%,#2E75B6 100%);color:white;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.header h1{font-size:32px;margin-bottom:8px;}
+.header .subtitle{font-size:14px;opacity:0.9;}
+.stats{display:flex;justify-content:center;gap:30px;margin-top:16px;font-size:14px;flex-wrap:wrap;}
+.filter-bar{background:white;padding:16px 20px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.filter-bar .label{font-weight:600;margin-right:8px;color:#555;}
+.filter-btn{padding:6px 14px;border:1px solid #d0d7de;background:white;border-radius:16px;cursor:pointer;font-size:13px;transition:all 0.2s;}
+.filter-btn:hover{background:#f0f4f8;}
+.filter-btn.active{background:#2E75B6;color:white;border-color:#2E75B6;}
+.timeline{position:relative;padding:20px 0;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#2E75B6 0%,#1F4E78 100%);transform:translateX(-50%);border-radius:2px;}
+.timeline-item{position:relative;width:50%;padding:12px 30px;}
+.timeline-item.left{left:0;}
+.timeline-item.right{left:50%;}
+.timeline-item.hidden{display:none;}
+.timeline-dot{position:absolute;top:28px;width:16px;height:16px;background:white;border:3px solid #2E75B6;border-radius:50%;z-index:2;}
+.timeline-item.left .timeline-dot{right:-8px;}
+.timeline-item.right .timeline-dot{left:-8px;}
+.timeline-card{background:white;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.08);overflow:hidden;transition:box-shadow 0.2s;}
+.timeline-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.12);}
+.card-header{background:linear-gradient(135deg,#1F4E78 0%,#2E75B6 100%);color:white;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.card-header-left{display:flex;flex-direction:column;gap:2px;}
+.card-date{font-size:12px;opacity:0.85;}
+.card-product{font-size:15px;font-weight:600;}
+.card-header-right{display:flex;align-items:center;gap:6px;}
+.version-badge{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;}
+.version-badge.old{background:rgba(255,255,255,0.2);}
+.version-badge.new{background:white;color:#1F4E78;}
+.version-arrow{font-size:16px;opacity:0.8;}
+.card-toggle{font-size:12px;margin-left:6px;transition:transform 0.2s;}
+.timeline-card.collapsed .card-toggle{transform:rotate(-90deg);}
+.timeline-card.collapsed .card-body{display:none;}
+.card-body{padding:16px;}
+.change-tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid #e1e4e8;}
+.tab-btn{padding:6px 14px;border:none;background:transparent;cursor:pointer;font-size:13px;color:#586069;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.tab-btn.active{color:#2E75B6;border-bottom-color:#2E75B6;font-weight:600;}
+.change-content{display:none;padding:10px 12px;background:#f6f8fa;border-left:3px solid #2E75B6;border-radius:4px;}
+.change-content.active{display:block;}
+.change-text{font-size:13px;color:#2c3e50;}
+@media (max-width:768px){
+  body{padding:20px 10px;}
+  .timeline::before{left:16px;}
+  .timeline-item{width:100%;left:0 !important;padding:8px 0 8px 40px;}
+  .timeline-item .timeline-dot{left:8px !important;right:auto !important;}
+  .header h1{font-size:22px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="nav-bar">
+    <span class="nav-label">Products:</span>
+    <a href="H3PRO.html" >H3 PRO</a>
+    <a href="H3SMART.html" class="current">H3 SMART</a>
+    <a href="SMARTLOGGER.html" >SMART LOGGER</a>
+    <a href="EQ.html" >EQ</a>
+  </div>
+  <div class="header">
+    <h1>H3 SMART Changelog</h1>
+    <div class="subtitle">Product Changelog Timeline</div>
+    <div class="stats">
+      <div>📋 Total <strong>16</strong> records</div>
+      <div>📅 2025-05-06 ~ 2026-04-02</div>
+    </div>
+  </div>
+  <div class="filter-bar">
+    <span class="label">Filter:</span>
+    <button class="filter-btn active" onclick="filterProduct(this,'all')">All</button><button class="filter-btn" onclick="filterProduct(this,'H3_G2_Master')">H3_G2_Master</button><button class="filter-btn" onclick="filterProduct(this,'H3_G2_Manager')">H3_G2_Manager</button>
+  </div>
+  <div class="timeline" id="timeline">
+    
+    <div class="timeline-item left" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-04-02</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.39</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.44</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added compliance with Sri Lanka No.28, Hungary No.36, and Malaysia No.24 grid standards.<br>2. Linked the BalanceLoadSwitch parameter with the corresponding grid standards.<br>3. Optimized Remote Control and time-of-use functions.<br>4. Improved the battery heating function.<br>5. Enhanced the G100 functionality.<br>6. Added inverter “waiting” status prompts and a global Import Limit feature (Manager ≥ V1.25 required).<br>7. Optimized logic prioritization to improve overall system stability.</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">1. Implemented Sri Lanka, Hungary, and Malaysia grid standards.<br>2. Associated the BalanceLoadSwitch parameter with the defined grid standards.<br>3. Optimized Remote Control and time-of-use functions.<br>4. Improved the battery heating function logic.<br>5. Enhanced the G100 functionality.<br>6. Added inverter “waiting” status prompts and a global Import Limit feature (Manager ≥ V1.25 required).<br>7. Optimized system control to improve overall stability.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-04-02</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.24</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.26</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added the Import Limit grid power restriction feature with local configuration support (requires Master ≥ V1.41).<br>2. Added Waiting status cause prompts and new local warnings for abnormal grid conditions or missing DC input (requires Master &gt; V1.40).<br>3. Updated certain grid-standard display items.<br>4. Optimized Meter/CT detection functionality.<br>5. Added self-adaptation and polarity auto-adjustment for 3CT and direct-through meters.<br>6. Added Password configuration under BasicParameter2.<br>7. Removed “Power Station” from the Work Mode interface.<br>8. Added support for cross-day time-of-use scheduling.<br>9. Optimized battery fast-upgrade performance.<br>10. Improved battery wake-up logic for Smart series models.</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">1. Added the Import Limit power feature with local configuration support (Master ≥ V1.41 required) to allowing installer to set grid import power based on grid requirement.<br>2. Added Waiting status warning description, including 'abnormal grid' or 'missing DC input' (Master &gt; V1.40 required) to facilitate quick troubleshooting.<br>3. Updated grid-standard display information.<br>4. Optimized Meter/CT detection functionality.<br>5. Added self-adaptation and polarity auto-adjustment for 3CT and inline-meter function.<br>6. Added Password configuration under BasicParameter2 to enhance system security and prevent unauthorized modification.<br>7. Removed “Power Station” from the Work Mode interface to avoid confusion.<br>8. Optimized Segmented Time Mode to support cross-day scheduling and meet diverse cross-day energy management needs.<br>9. Optimized battery update process to reduce update time.<br>10. Improved battery wake-up logic for Smart series models to ensure stable and quick trigger.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-01-26</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.36</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.39</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added 14A parallel operation function<br>2. Optimized battery heating function<br>3. Improved time-of-use function<br>4. Fixed BalanceLoad and 10-minute overvoltage issues<br>5. Enabled No. 105 Ireland safety standard and updated parameters for No. 30 Ireland and No. 72/73 Northern Ireland safety standards<br>6. Optimized VPP function with added related parameters (Manager ≥ 1.24)<br>7. Improved Backup function<br>8. Enabled NPE function by default for the following grid standards:No.14 – Poland、No.16 – Czech Republic、No.86 – France<br>9. Enhanced parallel system stability</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">1. Added 14A parallel operation function<br>2. Optimized battery heating function<br>3. Improved time-of-use function<br>4. Fixed BalanceLoad and 10-minute overvoltage issues<br>5. Enabled No. 105 Ireland safety standard and updated parameters for No. 30 Ireland and No. 72/73 Northern Ireland safety standards<br>6. Optimized VPP function with added related parameters (Manager ≥ 1.24)<br>7. Improved Backup function<br>8. Enabled NPE function by default for the following grid standards:No.14 – Poland、No.16 – Czech Republic、No.86 – France</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-01-26</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.23</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.24</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Updated boot sequence and added Polish language display in the local UI<br>2. Added parameter expansion function (Amber V2) in time-of-use mode<br>3. Added MPPT switch control function<br>4. Supported logger integration via LAN port<br>5. Added 14A parallel operation function<br>6. Optimized priority settings in time-of-use mode<br>7. Enhanced battery heating function<br>8. Improved factory reset operation<br>9. Optimized meter parameters</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">1. Updated boot sequence and added Polish language display in the local UI<br>2. Added parameter expansion function scheduler mode<br>3. Added MPPT switch control function<br>4. Added 14A parallel operation function<br>5. Optimized priority settings in time-of-use mode<br>6. Enhanced battery heating function<br>7. Improved factory reset operation<br>8. Optimized meter parameters</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-12-09</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.22</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.23</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Optimized the upgrade process to increase speed, improve remote upgrade rates and success rates.<br>2. Optimized the collector communication settings.<br>3. Optimized network communication functions.</div>
+            </div>
+            
+            <div class="change-content cust">
+              <div class="change-text">1. Optimized the upgrade process to increase speed, improve remote upgrade rates and success rates.<br>2. Optimized the collector communication settings.<br>3. Optimized network communication functions.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-11-25</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.33</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.36</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added No. 15 (Portugal) and No. 42 (Romania) safety standard support.<br>2. Optimized the BalanceLoad function to ensure stable single-phase inverter power output.<br>3. Added battery/PV control capability in Remote Control mode.<br>4. Added 6CT adaptive function (requires Manager version 1.21 or above).<br>5. Added single-phase 5kW output function.<br>6. Optimized parallel inverter protection to prevent false ground fault alarms during grid-connected/off-grid switching.<br>7. Optimized constant voltage heating function for battery (requires Manager version 1.21 or above).<br>8. Improved off-grid parallel operation functionality.<br>9. Optimized grid-connected/off-grid switching strategy for parallel inverters, enhancing system switching stability.</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-11-25</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.20</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.22</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added inverter setup and local display related parameters<br>2. Added 5-second fast data packet<br>3. Added Meter 6CT auto-calibration<br>4. Added P3 Eastern Europe version safety standards: Malaysia No. 24, Vietnam No. 13, Finland No. 49 (subject to dual restrictions by Master and Manager)<br>5. Optimized USB upgrade function<br>6. Improved external Flash read/write speed<br>7. Fixed related data calculation errors and local page character display issues</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-11-10</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.32</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.33</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1.Resolved relevant issues in the aging mode.</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-10-29</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.28</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.32</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Fixed abnormal parameter issues after Factory Reset.<br>2. Optimized the initialization parameters for EMS control of battery charge and discharge.<br>3. Resolved the X9-22 charging power limitation issue.<br>4. Improved abnormal condition handling logic under grid-connected operation.<br>5. Optimized battery grid-connection logic.<br>6. Added support for grid-connected inverter functionality on the off-grid port.<br>7. Added compliance support for standards No. 12, 16, 24, and 58.<br>8. Enhanced performance and stability in parallel operation.<br>9. Improved local upgrade functionality.<br>10. Adjusted the configurable range for battery MinSoc and MinSoc_OnGrid.<br>11. Optimized grid/on-grid switching logic to increase switching success rate.</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-10-29</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.16</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.20</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added a self-check function for X9.<br>2. Expanded meter compatibility (supports NGEN meters).<br>3. Added an **EPS PF Enable** option in Platform Basic Parameters 2.<br>4. Optimized local energy data display logic.<br>5. Improved error handling during local upgrade processes.<br>6. Optimized heat pump start/stop strategy; updated the power setting range in **SgReadyConfigure** to 0–60000.<br>7. Under Australian compliance, the MinSoc/MinSocOngrid range is 0–100; under non-Australian compliance, the range is 10–100 (MinSoc ≤ MinSocOngrid).<br>8. Optimized meter data update performance during parallel operation.<br>9. Fixed incorrect self-check data under Italy Self-test.</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-08-25</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.26</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.28</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Optimized BypassRelay operation logic<br>2. Added MaxSoc setting<br>3. N-PE relay: closed by default under German, UK, and Austrian regulations; open by default under other regulations; configurable via web interface<br>4. Remote Control has the highest priority<br>5. N-PE relay enable setting does not take effect in EPS mode<br>6. Fixed issues related to PV and battery<br>7. Enabled Slave devices to set safety regulation parameters</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-08-25</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.14</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.16</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added Maximum SOC display, renamed as "Maximum SoC_FromGrid"<br>2. Added support for SunSpec communication protocol, independent N-PE settings, and logger parallel communication port rate configuration<br>3. Modified workmode parameters<br>4. Added functional settings in time-of-use mode<br>5. Added support for Chint 6CT meter protocol<br>6. Fixed known bugs in version 1.15 program</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-07-07</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.21</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.26</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added PvEpsMode<br>2. Optimized Remote Control functionality<br>3. Updated parameters for Australian/Italian safety standards based on regulatory changes<br>4. Added 14A function for Belgian safety standard (No. 19) and enabled Ripple Control &amp; 14A function for Austrian safety standard (No. 33)<br>5. Optimized grid frequency protection<br>6. Resolved data display issues in parallel/EPS status<br>7. Fixed false alarms in check mode</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-07-07</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.12</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.14</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added power scheduling function for Australian safety standards  <br>2. Added PV-EPS mode  <br>3. Added 14A function for Belgian safety standards and added 14A &amp; Ripple Control functions for Austrian safety standards  <br>4. Added off-grid parallel logic  <br>5. Optimized fan control strategy  <br>6. Optimized time-of-use control function  <br>7. Enhanced USB drive recognition capability to improve file identification rate</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-05-06</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.12</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.18</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Optimization of fault diagnosis strategy under EPS mode<br>2. Collaborate with production lines to optimize power scheduling in factory mode<br>3. Fix display issues of parameters on some webpages<br>4. Optimize energy scheduling algorithm<br>5. Optimize balanceLoad function</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2025-05-06</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.09</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.12</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section"
