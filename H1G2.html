@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>H1 G2 - Product Changelog</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",sans-serif;background:linear-gradient(135deg,#3B0F70 0%,#5A1E86 48%,#7B2FA0 100%);background-attachment:fixed;color:#34223F;padding:40px 20px;line-height:1.6;}
+button{font:inherit;}
+.container{max-width:1200px;margin:0 auto;}
+.nav-bar{background:white;padding:12px 20px;border-radius:8px;margin-bottom:20px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.nav-bar a{padding:6px 14px;border-radius:16px;text-decoration:none;color:#6A238F;font-size:13px;font-weight:600;border:1px solid #d8c8e2;transition:all 0.2s;}
+.nav-bar a:hover{background:#F6EEFA;}
+.nav-bar a.current{background:linear-gradient(135deg,#6A238F 0%,#9A45BC 100%);color:white;border-color:#8C36AF;}
+.nav-label{font-weight:600;color:#555;margin-right:4px;}
+.header{text-align:center;margin-bottom:40px;padding:30px;background:linear-gradient(135deg,#FFF9FD 0%,#EEE7FF 100%);color:#3E275F;border-radius:12px;box-shadow:0 4px 12px rgba(33,14,58,0.18);}
+.header h1{font-size:32px;margin-bottom:8px;}
+.subtitle{font-size:14px;opacity:0.9;}
+.stats,.latest-versions{display:flex;justify-content:center;gap:18px;margin-top:16px;font-size:14px;flex-wrap:wrap;}
+.latest-versions span{padding:4px 12px;background:rgba(106,35,143,0.09);border:1px solid rgba(106,35,143,0.16);border-radius:14px;font-weight:600;}
+.filter-bar{background:white;padding:16px 20px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.filter-bar .label{font-weight:600;margin-right:8px;color:#555;}
+.filter-btn{padding:6px 14px;border:1px solid #d8c8e2;background:white;border-radius:16px;cursor:pointer;font-size:13px;transition:all 0.2s;}
+.filter-btn:hover{background:#F6EEFA;}
+.filter-btn.active{background:linear-gradient(135deg,#6A238F 0%,#9A45BC 100%);color:white;border-color:#8C36AF;}
+.timeline{position:relative;padding:20px 0;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#B468D5 0%,#7A269D 100%);transform:translateX(-50%);border-radius:2px;}
+.timeline-item{position:relative;width:50%;padding:12px 30px;}
+.timeline-item.left{left:0;}
+.timeline-item.right{left:50%;}
+.timeline-dot{position:absolute;top:28px;width:16px;height:16px;background:white;border:3px solid #A14CC5;border-radius:50%;z-index:2;}
+.timeline-item.left .timeline-dot{right:-8px;}
+.timeline-item.right .timeline-dot{left:-8px;}
+.timeline-card{background:white;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.08);overflow:hidden;transition:box-shadow 0.2s;}
+.timeline-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.12);}
+.card-header{width:100%;border:0;background:linear-gradient(135deg,#5C1D82 0%,#9A45BC 100%);color:white;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;text-align:left;}
+.card-header-left{display:flex;flex-direction:column;gap:2px;}
+.card-date{font-size:12px;opacity:0.85;}
+.card-product{font-size:15px;font-weight:600;}
+.card-header-right{display:flex;align-items:center;gap:6px;}
+.version-badge{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;}
+.version-badge.old{background:rgba(255,255,255,0.2);}
+.version-badge.new{background:white;color:#5C1D82;}
+.version-arrow{font-size:16px;opacity:0.8;}
+.card-toggle{font-size:12px;margin-left:6px;transition:transform 0.2s;}
+.timeline-card.collapsed .card-toggle{transform:rotate(-90deg);}
+.timeline-card.collapsed .card-body{display:none;}
+.card-body{padding:16px;}
+.change-tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid #e1e4e8;}
+.tab-label{padding:6px 14px;color:#8C36AF;border-bottom:2px solid #8C36AF;font-size:13px;font-weight:600;margin-bottom:-1px;}
+.change-content{padding:10px 12px;background:#FAF7FC;border-left:3px solid #8C36AF;border-radius:4px;}
+.change-list{padding-left:22px;font-size:13px;color:#2c3e50;}
+.change-list li+li{margin-top:3px;}
+@media (max-width:768px){
+  body{padding:20px 10px;}
+  .timeline::before{left:16px;}
+  .timeline-item{width:100%;left:0!important;padding:8px 0 8px 40px;}
+  .timeline-item .timeline-dot{left:8px!important;right:auto!important;}
+  .header h1{font-size:22px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar" aria-label="Products">
+    <span class="nav-label">Products:</span>
+    <a href="H1G2.html" class="current">H1 G2</a>
+    <a href="H3Pro.html">H3 PRO</a>
+    <a href="H3SMART.html">H3 SMART</a>
+    <a href="SMARTLOGGER.html">SMART LOGGER</a>
+    <a href="EQ.html">EQ</a>
+  </nav>
+  <header class="header">
+    <h1>H1 G2 Changelog</h1>
+    <div class="subtitle">Product Changelog Timeline</div>
+    <div class="stats">
+      <div>📋 Total <strong>23</strong> records</div>
+      <div>📅 2025-04-30 ~ 2026-06-05</div>
+    </div>
+    <div class="latest-versions" aria-label="Latest firmware versions">
+      <span>Master V1.57</span><span>Manager V1.76</span><span>Slave V1.04</span>
+    </div>
+  </header>
+  <div class="filter-bar">
+    <span class="label">Filter:</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="H1-G2_Master">H1-G2_Master</button>
+    <button class="filter-btn" data-filter="H1-G2_Manager">H1-G2_Manager</button>
+    <button class="filter-btn" data-filter="H1-G2-Slave">H1-G2-Slave</button>
+  </div>
+  <main class="timeline" id="timeline"></main>
+</div>
+<script>
+const releases=[
+  {date:'2026-06-05',product:'H1-G2_Master',old:'V1.55',new:'V1.57',items:[
+    'Added LoRa meter support.',
+    'Added ANU power limitation and fan speed control functions.',
+    'Optimized system operation logic under off-grid overload conditions.',
+    'Optimized meter exception handling logic.',
+    'Optimized grid code compliance for South Africa and Sri Lanka.',
+    'Optimized Load Limit and Generate Limit control priority and default parameter configuration under ANU functionality.'
+  ]},
+  {date:'2026-06-05',product:'H1-G2_Manager',old:'V1.73',new:'V1.76',items:[
+    'Added Backup and Peak Shaving mode support.',
+    'Added MPPT Switch functionality.',
+    'Added LoadLimitPower and GenerationLimitPower parameters.',
+    'Added Internal Fan Adaptive functionality.',
+    'Added Work Mode configuration in Time-of-Use (TOU) mode.',
+    'Added Hungarian language support.',
+    'Retained daily energy generation data after restoring factory settings.',
+    'Optimized French language translations.'
+  ]},
+  {date:'2026-05-15',product:'H1-G2_Master',old:'V1.53',new:'V1.55',items:[
+    'Optimized EPS-PF function.',
+    'Added PV Shutdown and PV Heat Pump functions.',
+    'Optimized Peak Shaving mode logic.',
+    'Optimized battery upgrade and SOC setting logic.',
+    'Added inverter output limiting function when meter communication is lost.',
+    'Added configurable AC + Bypass maximum current limit function (for Australian requirements).',
+    'Optimized Mode Schedule function.',
+    'Optimized factory reset logic to retain historical power generation data after reset.',
+    'Added Romania Grid Code No. 42 support.',
+    'Optimized battery scheduling operation logic.',
+    'Optimized energy statistics data.',
+    'Optimized VPP dispatch logic.'
+  ]},
+  {date:'2026-05-15',product:'H1-G2_Manager',old:'V1.70',new:'V1.73',items:[
+    'Added Meter3 support.',
+    'Optimized the 3-phase 6CT meter identification logic.',
+    'Fixed power and energy accumulation issues in parallel and grid-connected parallel operation scenarios.',
+    'Optimized local UI self-consumption.',
+    'Optimized the Time-of-Use (TOU) function.',
+    'Optimized the 5s power flow diagram display logic.',
+    'Optimized battery heating function logic.',
+    'Added parallel address and parallel quantity upload support.',
+    'Added configurable Max Input Current function.',
+    'Optimized the G100 function, which can only be enabled after meter connection.',
+    'Added DRM1 and DRM5 support.',
+    'Changed the screen display from "PV EPS MODE" to "OFF Grid".'
+  ]},
+  {date:'2026-04-03',product:'H1-G2_Master',old:'V1.51',new:'V1.53',items:[
+    'Optimized standby mode exit logic.',
+    'Shortened battery heating mode recovery time.',
+    'Optimized time-of-use scheduling strategy.',
+    'Improved parallel operation scenarios.',
+    'Added PV-EPS functionality under Brazil grid standards.',
+    'Supports automatic grounding recovery.',
+    'Optimized VPP dispatch strategy.',
+    'Added 2.5 kW and 4 kW model options.',
+    'Default off-grid NPE relay engagement under Hungary grid standards.',
+    'Off-grid dual EPS function set to default off.'
+  ]},
+  {date:'2026-04-03',product:'H1-G2_Manager',old:'V1.69',new:'V1.70',items:[
+    'Supports 6CT auto-adaptation.',
+    'Optimized interface display for improved user experience.',
+    'Enhanced remote fast-upgrade speed.',
+    'Improved 5-second power flow diagram refresh.',
+    'Optimized time-of-use scheduling strategy.',
+    'Added 2.5 kW model.'
+  ]},
+  {date:'2026-01-23',product:'H1-G2_Manager',old:'V1.66',new:'V1.69',items:[
+    'Supports cross-day scheduling in time-of-use settings.',
+    'Fixed data passthrough issues with battery information.'
+  ]},
+  {date:'2026-01-13',product:'H1-G2_Master',old:'V1.47',new:'V1.51',items:[
+    'Optimized Peak Shaving function',
+    'Enhanced power scheduling',
+    'Improved battery discharge logic and fixed battery heating response issue',
+    'Added parameters in Remote Control',
+    'MaxSocOnGrid now applies to all operating modes',
+    'Optimized voltage/frequency error handling for UPS entry'
+  ]},
+  {date:'2025-12-18',product:'H1-G2_Manager',old:'V1.64',new:'V1.66',items:[
+    'Updated ARM–DSP communication to use UART DMA for both transmission and reception.',
+    'Added support for external collectors in Master–Slave mode. The system operates in push mode by default and switches to Master–Slave mode (push disabled) upon receiving packet types 08 or 09. If no 08/09 packets are received within 30 minutes, the system automatically resumes push mode.',
+    'Added support for modifying the WiFi port baud rate via command 23131, with a maximum configurable baud rate of 115200. When a non-default baud rate is configured, the system automatically restores the default baud rate of 9600 if no data is received for 1 hour.',
+    'Added charging_pil_load, a virtual load for charging piles.',
+    'Added Import Limit Power to Platform Basic Parameters 2 (requires DSP version > 1.48).',
+    'Added support for the fast power flow diagram protocol.',
+    'Added local fault reporting, active error reporting, and historical fault records for BypassRelayOpenWarning and BypassRelayClosedWarning; added remote fault reporting (ID8) for BypassRelayFail.',
+    'Added support for remotely starting the second adaptive channel for 3-phase 6CT.',
+    'Increased the maximum WiFi firmware upgrade size for the BMU to 512 KB (previously 256 KB).',
+    'Fixed the G100 error caused by configuring a three-phase meter while a single-phase meter is actually connected.',
+    'Fixed the issue with reading register 46003.'
+  ]},
+  {date:'2025-11-24',product:'H1-G2_Master',old:'V1.45',new:'V1.47',items:[
+    'Fixed standby function logic',
+    'Added safety standards: No. 24 (Malaysia), No. 28 (Sri Lanka)',
+    'Added parameter settings within time-of-use intervals',
+    'Added/optimized battery heating with constant current mode',
+    'Optimized power scheduling',
+    'Optimized parallel operation logic',
+    'Fixed battery charging/discharging issues'
+  ]},
+  {date:'2025-11-24',product:'H1-G2_Manager',old:'V1.62',new:'V1.64',items:[
+    'Added support for additional time-segment parameter configuration, with up to 1–24 time segments. Supported additional parameters include Import Limited Power, Export Limited Power, PV Limited Power, and Reactive Power (effective when DSP version ≥ 1.46).',
+    'Updated the default charge/discharge power of new devices to 6000 (previously 0).',
+    'Fixed the issue where the system failed to enter forced-charge mode during standby.',
+    'For models under the UK safety parameters, when the time-segment mode is set to Force Charge AC, the PV system is now allowed to feed back to the grid once the battery reaches the target SOC.',
+    'Upgrade optimization: upgrading to the same firmware version is now permitted; during USB or remote upgrade, WiFi commands are not processed.',
+    'Modified behavior so that setting Meter 1 type via local or remote configuration no longer triggers a Manager reboot.',
+    'Added Meter2 auto-adaptation for 3-phase 6-CT smart meters: enabling auto-adaptation on the local screen allows automatic calibration of Meter2 and corrects the issue where a 3-phase meter without G100 connection did not report errors.',
+    'Battery heating now supports cross-day time-period configuration.',
+    'Added reporting of CT2 generation/consumption statistics from Meter2 to the platform.',
+    'Added local-screen display of CT2 power from Meter2.'
+  ]},
+  {date:'2025-10-16',product:'H1-G2_Master',old:'V1.44',new:'V1.45',items:[
+    'Resolved an issue where the PU function failed to output power.'
+  ]},
+  {date:'2025-10-16',product:'H1-G2_Manager',old:'V1.58',new:'V1.62',items:[
+    'Added constant current/voltage heating function',
+    'Modified meter task structure',
+    'Added parameter information within time-of-use intervals',
+    'Updated battery Mini SOC and Mini SOC OnGrid ranges'
+  ]},
+  {date:'2025-09-20',product:'H1-G2_Master',old:'V1.40',new:'V1.43',items:[
+    'Added PV anti-flicker function (disabled by default)',
+    'Optimized parallel system logic',
+    'Improved power scheduling function',
+    'Irish safety standard updated (No. 30 revised, No. 105 added)',
+    'Austrian safety standard revised',
+    'Added EPS support for grid-connected inverters',
+    'Remote function code protocol updated'
+  ]},
+  {date:'2025-09-20',product:'H1-G2_Manager',old:'V1.56',new:'V1.58',items:[
+    'Added G100 function support for CT-based meter detection.',
+    'Extended standard display support to 105 (Ireland-Mini) and updated standard 30 display (Ireland-Micro).',
+    'Added remote-configurable EPS_PF function.',
+    'Added platform setting to enable PV anti-hiccup function.',
+    'Updated PCS data upload to include the current Time-of-Use (TOU) period.'
+  ]},
+  {date:'2025-08-21',product:'H1-G2_Manager',old:'V1.54',new:'V1.56',items:[
+    'Optimized time-of-use function',
+    'Extended protocols and communication capabilities',
+    'Improved battery firmware upgrade process',
+    'Remote control priority is now higher than time-of-use',
+    'Modified battery information upload mechanism',
+    'Added Australian VPP backend scheduling function',
+    'Updated three-phase meter reading method'
+  ]},
+  {date:'2025-07-30',product:'H1-G2_Master',old:'V1.38',new:'V1.40',items:[
+    'Added NPE relay enable signal',
+    'German 14A safety standard added',
+    'Added maxSOCGrid parameter',
+    'Optimized conditions for entering UPS mode',
+    'Optimized power scheduling',
+    'Added AC input current limit of 40A (restricted to Australian safety standard)'
+  ]},
+  {date:'2025-07-15',product:'H1-G2-Slave',old:'V1.03',new:'V1.04',items:[
+    'Add PV EPS mode function'
+  ]},
+  {date:'2025-07-15',product:'H1-G2_Master',old:'V1.35',new:'V1.38',items:[
+    'Modify the default value of OnGridMinSOC to 10',
+    'Optimize UPS functionality.',
+    'Australian safety parameters are modified according to regulations.',
+    'Power scheduling optimization',
+    'EPS overload increases the error mechanism.'
+  ]},
+  {date:'2025-07-15',product:'H1-G2_Manager',old:'V1.53',new:'V1.54',items:[
+    'Add remote settings for G100 parameters',
+    'Add PV EPS mode related information upload'
+  ]},
+  {date:'2025-05-14',product:'H1-G2_Manager',old:'V1.52',new:'V1.53',items:[
+    'Add French display',
+    'Added ExportLimitedPower and ImportLimitedPower parameters to data transmission.'
+  ]},
+  {date:'2025-04-30',product:'H1-G2_Master',old:'V1.33',new:'V1.35',items:[
+    'Optimized grid voltage sampling',
+    'Optimized power scheduling',
+    'Adjusted partial parameters according to the latest safety regulations',
+    'Optimized battery charge-discharge logic in parallel operation scenarios'
+  ]},
+  {date:'2025-04-30',product:'H1-G2_Manager',old:'V1.49',new:'V1.52',items:[
+    'Optimized EPS power calculation',
+    'BMS lost error logic optimization: No "BMS lost" error if BMS has not been connected since power-on; "BMS lost" error will be reported if BMS is lost after previous connection'
+  ]}
+];
+
+const timeline=document.getElementById('timeline');
+
+function escapeHtml(value){
+  return value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+}
+
+function renderTimeline(product='all'){
+  const visible=product==='all'?releases:releases.filter(release=>release.product===product);
+  timeline.innerHTML=visible.map((release,index)=>`
+    <article class="timeline-item ${index%2===0?'left':'right'}">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card ${index>=3?'collapsed':''}">
+        <button class="card-header" type="button" aria-expanded="${index<3}" aria-label="Toggle ${escapeHtml(release.product)} ${release.new}">
+          <span class="card-header-left">
+            <span class="card-date">${release.date}</span>
+            <span class="card-product">${escapeHtml(release.product)}</span>
+          </span>
+          <span class="card-header-right">
+            <span class="version-badge old">${release.old}</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">${release.new}</span>
+            <span class="card-toggle">▼</span>
+          </span>
+        </button>
+        <div class="card-body">
+          <div class="change-tabs"><span class="tab-label">Key Account</span></div>
+          <div class="change-content"><ol class="change-list">${release.items.map(item=>`<li>${escapeHtml(item)}</li>`).join('')}</ol></div>
+        </div>
+      </div>
+    </article>`).join('');
+}
+
+timeline.addEventListener('click',event=>{
+  const header=event.target.closest('.card-header');
+  if(!header)return;
+  const card=header.closest('.timeline-card');
+  card.classList.toggle('collapsed');
+  header.setAttribute('aria-expanded',String(!card.classList.contains('collapsed')));
+});
+
+document.querySelector('.filter-bar').addEventListener('click',event=>{
+  const button=event.target.closest('.filter-btn');
+  if(!button)return;
+  document.querySelectorAll('.filter-btn').forEach(item=>item.classList.remove('active'));
+  button.classList.add('active');
+  renderTimeline(button.dataset.filter);
+});
+
+renderTimeline();
+</script>
+</body>
+</html>
