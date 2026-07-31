@@ -6,41 +6,41 @@
 <title>H3 PRO – Product Changelog</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:-apple-system,"Segoe UI",sans-serif;background:#f5f7fa;color:#2c3e50;padding:40px 20px;line-height:1.6;}
+body{font-family:-apple-system,"Segoe UI",sans-serif;background:linear-gradient(135deg,#3B0F70 0%,#5A1E86 48%,#7B2FA0 100%);background-attachment:fixed;color:#34223F;padding:40px 20px;line-height:1.6;}
 .container{max-width:1200px;margin:0 auto;}
 .nav-bar{background:white;padding:12px 20px;border-radius:8px;margin-bottom:20px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
-.nav-bar a{padding:6px 14px;border-radius:16px;text-decoration:none;color:#1F4E78;font-size:13px;font-weight:600;border:1px solid #d0d7de;transition:all 0.2s;}
-.nav-bar a:hover{background:#f0f4f8;}
-.nav-bar a.current{background:#2E75B6;color:white;border-color:#2E75B6;}
+.nav-bar a{padding:6px 14px;border-radius:16px;text-decoration:none;color:#6A238F;font-size:13px;font-weight:600;border:1px solid #d8c8e2;transition:all 0.2s;}
+.nav-bar a:hover{background:#F6EEFA;}
+.nav-bar a.current{background:linear-gradient(135deg,#6A238F 0%,#9A45BC 100%);color:white;border-color:#8C36AF;}
 .nav-bar .nav-label{font-weight:600;color:#555;margin-right:4px;}
-.header{text-align:center;margin-bottom:40px;padding:30px;background:linear-gradient(135deg,#1F4E78 0%,#2E75B6 100%);color:white;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.header{text-align:center;margin-bottom:40px;padding:30px;background:linear-gradient(135deg,#FFF9FD 0%,#EEE7FF 100%);color:#3E275F;border-radius:12px;box-shadow:0 4px 12px rgba(33,14,58,0.18);}
 .header h1{font-size:32px;margin-bottom:8px;}
 .header .subtitle{font-size:14px;opacity:0.9;}
 .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;font-size:14px;flex-wrap:wrap;}
 .filter-bar{background:white;padding:16px 20px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
 .filter-bar .label{font-weight:600;margin-right:8px;color:#555;}
-.filter-btn{padding:6px 14px;border:1px solid #d0d7de;background:white;border-radius:16px;cursor:pointer;font-size:13px;transition:all 0.2s;}
-.filter-btn:hover{background:#f0f4f8;}
-.filter-btn.active{background:#2E75B6;color:white;border-color:#2E75B6;}
+.filter-btn{padding:6px 14px;border:1px solid #d8c8e2;background:white;border-radius:16px;cursor:pointer;font-size:13px;transition:all 0.2s;}
+.filter-btn:hover{background:#F6EEFA;}
+.filter-btn.active{background:linear-gradient(135deg,#6A238F 0%,#9A45BC 100%);color:white;border-color:#8C36AF;}
 .timeline{position:relative;padding:20px 0;}
-.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#2E75B6 0%,#1F4E78 100%);transform:translateX(-50%);border-radius:2px;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#B468D5 0%,#7A269D 100%);transform:translateX(-50%);border-radius:2px;}
 .timeline-item{position:relative;width:50%;padding:12px 30px;}
 .timeline-item.left{left:0;}
 .timeline-item.right{left:50%;}
 .timeline-item.hidden{display:none;}
-.timeline-dot{position:absolute;top:28px;width:16px;height:16px;background:white;border:3px solid #2E75B6;border-radius:50%;z-index:2;}
+.timeline-dot{position:absolute;top:28px;width:16px;height:16px;background:white;border:3px solid #A14CC5;border-radius:50%;z-index:2;}
 .timeline-item.left .timeline-dot{right:-8px;}
 .timeline-item.right .timeline-dot{left:-8px;}
 .timeline-card{background:white;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.08);overflow:hidden;transition:box-shadow 0.2s;}
 .timeline-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.12);}
-.card-header{background:linear-gradient(135deg,#1F4E78 0%,#2E75B6 100%);color:white;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.card-header{background:linear-gradient(135deg,#5C1D82 0%,#9A45BC 100%);color:white;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
 .card-header-left{display:flex;flex-direction:column;gap:2px;}
 .card-date{font-size:12px;opacity:0.85;}
 .card-product{font-size:15px;font-weight:600;}
 .card-header-right{display:flex;align-items:center;gap:6px;}
 .version-badge{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;}
 .version-badge.old{background:rgba(255,255,255,0.2);}
-.version-badge.new{background:white;color:#1F4E78;}
+.version-badge.new{background:white;color:#5C1D82;}
 .version-arrow{font-size:16px;opacity:0.8;}
 .card-toggle{font-size:12px;margin-left:6px;transition:transform 0.2s;}
 .timeline-card.collapsed .card-toggle{transform:rotate(-90deg);}
@@ -48,8 +48,8 @@ body{font-family:-apple-system,"Segoe UI",sans-serif;background:#f5f7fa;color:#2
 .card-body{padding:16px;}
 .change-tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid #e1e4e8;}
 .tab-btn{padding:6px 14px;border:none;background:transparent;cursor:pointer;font-size:13px;color:#586069;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
-.tab-btn.active{color:#2E75B6;border-bottom-color:#2E75B6;font-weight:600;}
-.change-content{display:none;padding:10px 12px;background:#f6f8fa;border-left:3px solid #2E75B6;border-radius:4px;}
+.tab-btn.active{color:#8C36AF;border-bottom-color:#8C36AF;font-weight:600;}
+.change-content{display:none;padding:10px 12px;background:#FAF7FC;border-left:3px solid #8C36AF;border-radius:4px;}
 .change-content.active{display:block;}
 .change-text{font-size:13px;color:#2c3e50;}
 @media (max-width:768px){
@@ -74,8 +74,8 @@ body{font-family:-apple-system,"Segoe UI",sans-serif;background:#f5f7fa;color:#2
     <h1>H3 PRO Changelog</h1>
     <div class="subtitle">Product Changelog Timeline</div>
     <div class="stats">
-      <div>📋 Total <strong>9</strong> records</div>
-      <div>📅 2025-02-20 ~ 2025-12-09</div>
+      <div>📋 Total <strong>13</strong> records</div>
+      <div>📅 2025-02-20 ~ 2026-06-26</div>
     </div>
   </div>
   <div class="filter-bar">
@@ -83,7 +83,118 @@ body{font-family:-apple-system,"Segoe UI",sans-serif;background:#f5f7fa;color:#2
     <button class="filter-btn active" onclick="filterProduct(this,'all')">All</button><button class="filter-btn" onclick="filterProduct(this,'H3pro_Manager')">H3pro_Manager</button><button class="filter-btn" onclick="filterProduct(this,'H3pro_Master')">H3pro_Master</button>
   </div>
   <div class="timeline" id="timeline">
-    
+    <div class="timeline-item left" data-product="H3pro_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-06-26</div>
+            <div class="card-product">H3pro_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V2.02</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V2.07</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Optimized reactive power mode default control strategy under Australian grid standard<br>2. Optimized standby mode factory default setting<br>3. Optimized load compensation value processing<br>4. Added apparent power limit function<br>5. Optimized output power limit strategy<br>6. Optimized battery loss compensation strategy<br>7. Optimized Peak Shaving mode dispatch strategy<br>8. Optimized inverter output power ramp-up control<br>9. Optimized multi-country grid standards &amp; feature integration<br>10. Optimized power control in battery-less scenario<br>11. Optimized PV input voltage protection upper limit<br>12. Optimized zero export mode overvoltage control<br>13. Optimized soft-start state handling<br>14. Optimized battery power distribution strategy<br>15. Improved parallel 14A power limit function<br>16. Added N-PE close enable function (South African grid standard)<br>17. Optimized PV and battery aging detection time (4h→3h)<br>18. Added Belgium, Sri Lanka, Malaysia grid standard support<br>19. Optimized battery and grid power distribution priority</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item right" data-product="H3pro_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-06-26</div>
+            <div class="card-product">H3pro_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V2.01</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V2.03</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Optimized G100 function and added CT break detection<br>2. Added importlimit LCD screen setting<br>3. Optimized SN and model name display<br>4. Optimized 6CT detection adaptation under BMS2<br>5. Optimized PV shutdown setting<br>6. Added Ukraine grid standard support<br>7. Optimized meter reading and data processing<br>8. Optimized USB and remote AFCI upgrade<br>9. Optimized second meter power data processing<br>10. Optimized Modbus protocol SOC reading<br>11. Optimized DRM limit value judgment<br>12. Added AFCI switch screen setting<br>13. Optimized long-press key response<br>14. Optimized meter detection mechanism under parallel state<br>15. Optimized SGready remote setting<br>16. Optimized workmode and forced charge time setting during time-of-use period<br>17. Optimized remote Grounding setting synchronization<br>18. Optimized remote BalanceLoad setting<br>19. Optimized BMS warning information display<br>20. Optimized French translation<br>21. Optimized grid standard terms display<br>22. Optimized time-of-use overlapping period detection<br>23. Optimized forced charge/discharge exit handling during time-of-use period</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item left" data-product="H3pro_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-06-01</div>
+            <div class="card-product">H3pro_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V2.02</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V2.06</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added support for grid compliance requirements in Belgium, Sri Lanka, and Malaysia<br>2. Added apparent power limitation functionality to support a wider range of application scenarios<br>3. Enhanced Peak Shaving operating strategy<br>4. Optimized parallel system performance<br>5. Enhanced battery energy management strategy<br>6. Improved power control performance in battery-less operating scenarios<br>7. Enhanced voltage protection mechanisms<br>8. Optimized system startup and operating control strategies</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item right" data-product="H3pro_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-06-01</div>
+            <div class="card-product">H3pro_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V2.02</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V2.03</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added local enable/disable setting for the AFCI function<br>2. Enhanced Time-of-Use (TOU) operation and configuration mechanism, allowing adjustment of selected operating parameters during operation<br>3. Optimized parallel system operating strategy<br>4. Enhanced remote configuration functionality, improving the accuracy and reliability of parameter synchronization<br>5. Improved user interface experience and local operation stability</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="timeline-item left" data-product="H3pro_Manager">
       <div class="timeline-dot"></div>
       <div class="timeline-card">
