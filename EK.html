@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EK - Product Changelog</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",sans-serif;background:linear-gradient(135deg,#3B0F70 0%,#5A1E86 48%,#7B2FA0 100%);background-attachment:fixed;color:#34223F;padding:40px 20px;line-height:1.6;}
+button{font:inherit;}
+.container{max-width:1200px;margin:0 auto;}
+.nav-bar{background:white;padding:12px 20px;border-radius:8px;margin-bottom:20px;box-shadow:0 2px 6px rgba(0,0,0,.05);display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.nav-bar a{padding:6px 14px;border-radius:16px;text-decoration:none;color:#6A238F;font-size:13px;font-weight:600;border:1px solid #d8c8e2;transition:all .2s;}
+.nav-bar a:hover{background:#F6EEFA;}
+.nav-bar a.current{background:linear-gradient(135deg,#6A238F 0%,#9A45BC 100%);color:white;border-color:#8C36AF;}
+.nav-label{font-weight:600;color:#555;margin-right:4px;}
+.header{text-align:center;margin-bottom:40px;padding:30px;background:linear-gradient(135deg,#FFF9FD 0%,#EEE7FF 100%);color:#3E275F;border-radius:12px;box-shadow:0 4px 12px rgba(33,14,58,.18);}
+.header h1{font-size:32px;margin-bottom:8px;}
+.subtitle{font-size:14px;opacity:.9;}
+.stats,.latest-versions{display:flex;justify-content:center;gap:18px;margin-top:16px;font-size:14px;flex-wrap:wrap;}
+.latest-versions span{padding:4px 12px;background:rgba(106,35,143,.09);border:1px solid rgba(106,35,143,.16);border-radius:14px;font-weight:600;}
+.archive-note{margin-top:12px;font-size:12px;color:#725A80;}
+.filter-bar{background:white;padding:16px 20px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 6px rgba(0,0,0,.05);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.filter-bar .label{font-weight:600;margin-right:8px;color:#555;}
+.filter-btn{padding:6px 14px;border:1px solid #d8c8e2;background:white;border-radius:16px;cursor:pointer;font-size:13px;transition:all .2s;}
+.filter-btn:hover{background:#F6EEFA;}
+.filter-btn.active{background:linear-gradient(135deg,#6A238F 0%,#9A45BC 100%);color:white;border-color:#8C36AF;}
+.timeline{position:relative;padding:20px 0;}
+.timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#B468D5 0%,#7A269D 100%);transform:translateX(-50%);border-radius:2px;}
+.timeline-item{position:relative;width:50%;padding:12px 30px;}
+.timeline-item.left{left:0;}
+.timeline-item.right{left:50%;}
+.timeline-dot{position:absolute;top:28px;width:16px;height:16px;background:white;border:3px solid #A14CC5;border-radius:50%;z-index:2;}
+.timeline-item.left .timeline-dot{right:-8px;}
+.timeline-item.right .timeline-dot{left:-8px;}
+.timeline-card{background:white;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.08);overflow:hidden;transition:box-shadow .2s;}
+.timeline-card:hover{box-shadow:0 6px 18px rgba(0,0,0,.12);}
+.card-header{width:100%;border:0;background:linear-gradient(135deg,#5C1D82 0%,#9A45BC 100%);color:white;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;text-align:left;}
+.card-header-left{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.card-date{font-size:12px;opacity:.85;}
+.card-product{font-size:14px;font-weight:600;}
+.card-header-right{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.version-badge{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;}
+.version-badge.version{background:white;color:#5C1D82;}
+.version-badge.count{background:rgba(255,255,255,.2);}
+.version-badge.latest{background:#F6D871;color:#4C3158;}
+.card-toggle{font-size:12px;margin-left:6px;transition:transform .2s;}
+.timeline-card.collapsed .card-toggle{transform:rotate(-90deg);}
+.timeline-card.collapsed .card-body{display:none;}
+.card-body{padding:16px;}
+.group-label{display:inline-block;margin-bottom:12px;padding:4px 10px;border-radius:12px;background:#F4EAF8;color:#6A238F;font-size:12px;font-weight:700;}
+.change-content{padding:10px 12px;background:#FAF7FC;border-left:3px solid #8C36AF;border-radius:4px;}
+.change-list{padding-left:22px;font-size:13px;color:#2c3e50;}
+.change-list li+li{margin-top:4px;}
+@media (max-width:768px){
+  html,body{overflow-x:hidden;}
+  body{padding:20px 10px;}
+  .container{width:100%;min-width:0;}
+  .nav-bar{align-items:flex-start;}
+  .nav-label{flex-basis:100%;}
+  .nav-bar a{flex:0 0 auto;}
+  .stats,.latest-versions{flex-direction:column;align-items:center;gap:8px;}
+  .timeline::before{left:16px;}
+  .timeline-item{width:100%;left:0!important;padding:8px 0 8px 40px;}
+  .timeline-item .timeline-dot{left:8px!important;right:auto!important;}
+  .card-header{align-items:flex-start;flex-direction:column;}
+  .card-header-right{width:100%;}
+  .header h1{font-size:22px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar" aria-label="Products">
+    <span class="nav-label">Products:</span>
+    <a href="ASERIES.html">A SERIES</a>
+    <a href="LMAX.html">L MAX</a>
+    <a href="H1G2.html">H1 G2</a>
+    <a href="H3Pro.html">H3 PRO</a>
+    <a href="H3SMART.html">H3 SMART</a>
+    <a href="SMARTLOGGER.html">SMART LOGGER</a>
+    <a href="EQ.html">EQ</a>
+    <a href="ECS.html">ECS</a>
+    <a href="EK.html" class="current">EK</a>
+  </nav>
+  <header class="header">
+    <h1>EK Changelog</h1>
+    <div class="subtitle">BCU Firmware Release Timeline</div>
+    <div class="stats">
+      <div>Total <strong>7</strong> records</div>
+      <div><strong>41</strong> update items</div>
+      <div>2025-04-18 ~ 2026-06-03</div>
+    </div>
+    <div class="latest-versions" aria-label="Latest firmware version">
+      <span>BCU V1.0.45</span>
+    </div>
+    <div class="archive-note">Last updated 2026-07-21. Earlier version changes are hidden.</div>
+  </header>
+  <div class="filter-bar">
+    <span class="label">Firmware:</span>
+    <button class="filter-btn active" type="button" data-filter="all">All</button>
+    <button class="filter-btn" type="button" data-filter="bcu">BCU</button>
+  </div>
+  <main class="timeline" id="timeline"></main>
+</div>
+<script>
+const releases=[
+  {
+    date:"2026-06-03",from:"V1.0.44",to:"V1.0.45",latest:true,
+    items:[
+      "Added stack detection function.",
+      "Added energy correction strategy.",
+      "Optimized parallel mixing 1900 message Design Energy data.",
+      "Added PCS interface debug protocol.",
+      "Added PCS protocol battery model display.",
+      "Added PCS protocol debug message.",
+      "Added PCS protocol fault message.",
+      "Optimized shutdown record storage.",
+      "Added factory runtime recording.",
+      "Optimized factory test mode storage.",
+      "Removed AFE pin fault detection."
+    ]
+  },
+  {
+    date:"2025-12-12",from:"V1.0.42",to:"V1.0.43",latest:false,
+    items:[
+      "Optimized the low-temperature backup power strategy.",
+      "Fixed an issue where forced charging was incorrectly triggered during low-current charging and failed to respond.",
+      "Optimized the charge and discharge current limiting logic to reduce circulating currents in parallel operation."
+    ]
+  },
+  {
+    date:"2025-12-03",from:"V1.0.41",to:"V1.0.42",latest:false,
+    items:["Adjusted parameters for factory aging mode."]
+  },
+  {
+    date:"2025-10-25",from:"V1.0.36",to:"V1.0.41",latest:false,
+    items:[
+      "Compatible with the new 30Ah modules from Multifluo.",
+      "Set heating request current to a fixed 15A (inverter already supports a maximum current of 15A).",
+      "Optimized the triggering conditions for overvoltage during charging.",
+      "Adjusted charge/discharge depth to 100% DOD."
+    ]
+  },
+  {
+    date:"2025-10-25",from:"V1.0.35",to:"V1.0.36",latest:false,
+    items:[
+      "PCS protocol no longer uploads BMS onboard power supply voltage faults.",
+      "After remote upgrade and restart, the system defaults to black start (supports off-grid upgrade).",
+      "Optimized SOP parameter table.",
+      "Adjusted SOH fault thresholds for EP5/EP11 series batteries.",
+      "Adjusted low SOC fast-charge thresholds.",
+      "Fixed the issue where holding the power button after startup would immediately shut down the device.",
+      "Optimized SOC algorithm to improve SOC accuracy.",
+      "Set heating request current to a fixed 5A to accommodate heating films with different parameters.",
+      "Optimized full-charge request strategy."
+    ]
+  },
+  {
+    date:"2025-04-18",from:"V1.031",to:"V1.035",latest:false,
+    items:[
+      "Added remaining discharge energy parameter (message 0x1903) and message 0xD22 to PCS protocol.",
+      "Fixed SOC jump issue in factory test mode.",
+      "Compatible with GD32F527 chip and EP3/5/10/11 Plus modules.",
+      "Optimized parallel charge/discharge parameters, low-temperature heating logic, low-temperature backup strategy, and end-of-discharge SOP.",
+      "Optimized discharge SOP of Xingheng modules.",
+      "Imported SOP and SOX algorithm for Multifluo (DuoFluor) cells."
+    ]
+  },
+  {
+    date:"2025-04-18",from:"V1.031",to:"V1.032",latest:false,
+    items:[
+      "Optimized SOC algorithm.",
+      "Added command for clearing calibration parameters.",
+      "Optimized forced charging strategy at low SOC.",
+      "Compatible with Penghui 30Ah cells and introduced SOP.",
+      "Added EP6/EP12 module models to PCS protocol.",
+      "Upgrade restriction: rollback to versions earlier than R1.007 is prohibited.",
+      "Optimized heating strategy under PCS off-grid power-down conditions."
+    ]
+  }
+];
+
+function escapeHtml(value){
+  return String(value).replace(/[&<>"']/g,function(character){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character];
+  });
+}
+
+const timeline=document.getElementById("timeline");
+
+function renderTimeline(){
+  timeline.innerHTML=releases.map(function(release,index){
+    const list=release.items.map(function(item){return "<li>"+escapeHtml(item)+"</li>";}).join("");
+    const latest=release.latest?'<span class="version-badge latest">Latest</span>':"";
+    const expanded=index<2;
+    return '<article class="timeline-item '+(index%2===0?"left":"right")+'">'+
+      '<div class="timeline-dot"></div>'+
+      '<div class="timeline-card '+(expanded?"":"collapsed")+'">'+
+        '<button class="card-header" type="button" aria-expanded="'+expanded+'">'+
+          '<span class="card-header-left"><span class="card-date">'+release.date+'</span><span class="card-product">EK BCU</span></span>'+
+          '<span class="card-header-right">'+latest+'<span class="version-badge version">'+release.from+' -&gt; '+release.to+'</span><span class="version-badge count">'+release.items.length+' '+(release.items.length===1?"item":"items")+'</span><span class="card-toggle">v</span></span>'+
+        '</button>'+
+        '<div class="card-body"><span class="group-label">EK BCU</span><div class="change-content"><ol class="change-list">'+list+'</ol></div></div>'+
+      '</div>'+
+    '</article>';
+  }).join("");
+}
+
+timeline.addEventListener("click",function(event){
+  const header=event.target.closest(".card-header");
+  if(!header)return;
+  const card=header.closest(".timeline-card");
+  card.classList.toggle("collapsed");
+  header.setAttribute("aria-expanded",String(!card.classList.contains("collapsed")));
+});
+
+document.querySelector(".filter-bar").addEventListener("click",function(event){
+  const button=event.target.closest(".filter-btn");
+  if(!button)return;
+  document.querySelectorAll(".filter-btn").forEach(function(item){item.classList.remove("active");});
+  button.classList.add("active");
+  renderTimeline();
+});
+
+renderTimeline();
+</script>
+</body>
+</html>
