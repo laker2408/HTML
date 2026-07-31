@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>L MAX - Product Changelog</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",sans-serif;background:linear-gradient(135deg,#3B0F70 0%,#5A1E86 48%,#7B2FA0 100%);background-attachment:fixed;color:#34223F;padding:40px 20px;line-height:1.6;}
+button{font:inherit;}
+.container{max-width:1200px;margin:0 auto;}
+.nav-bar{background:white;padding:12px 20px;border-radius:8px;margin-bottom:20px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.nav-bar a{padding:6px 14px;border-radius:16px;text-decoration:none;color:#6A238F;font-size:13px;font-weight:600;border:1px solid #d8c8e2;transition:all 0.2s;}
+.nav-bar a:hover{background:#F6EEFA;}
+.nav-bar a.current{background:linear-gradient(135deg,#6A238F 0%,#9A45BC 100%);color:white;border-color:#8C36AF;}
+.nav-label{font-weight:600;color:#555;margin-right:4px;}
+.header{text-align:center;margin-bottom:40px;padding:30px;background:linear-gradient(135deg,#FFF9FD 0%,#EEE7FF 100%);color:#3E275F;border-radius:12px;box-shadow:0 4px 12px rgba(33,14,58,0.18);}
+.header h1{font-size:32px;margin-bottom:8px;}
+.subtitle{font-size:14px;opacity:0.9;}
+.stats,.latest-versions{display:flex;justify-content:center;gap:18px;margin-top:16px;font-size:14px;flex-wrap:wrap;}
+.latest-versions span{padding:4px 12px;background:rgba(106,35,143,0.09);border:1px solid rgba(106,35,143,0.16);border-radius:14px;font-weight:600;}
+.filter-bar{background:white;padding:16px 20px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 6px rgba(0,0,0,0.05);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.filter-bar .label{font-weight:600;margin-right:8px;color:#555;}
+.filter-btn{padding:6px 14px;border:1px solid #d8c8e2;background:white;border-radius:16px;cursor:pointer;font-size:13px;transition:all 0.2s;}
+.filter-btn:hover{background:#F6EEFA;}
+.filter-btn.active{background:linear-gradient(135deg,#6A238F 0%,#9A45BC 100%);color:white;border-color:#8C36AF;}
+.timeline{position:relative;padding:20px 0;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#B468D5 0%,#7A269D 100%);transform:translateX(-50%);border-radius:2px;}
+.timeline-item{position:relative;width:50%;padding:12px 30px;}
+.timeline-item.left{left:0;}
+.timeline-item.right{left:50%;}
+.timeline-dot{position:absolute;top:28px;width:16px;height:16px;background:white;border:3px solid #A14CC5;border-radius:50%;z-index:2;}
+.timeline-item.left .timeline-dot{right:-8px;}
+.timeline-item.right .timeline-dot{left:-8px;}
+.timeline-card{background:white;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.08);overflow:hidden;transition:box-shadow 0.2s;}
+.timeline-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.12);}
+.card-header{width:100%;border:0;background:linear-gradient(135deg,#5C1D82 0%,#9A45BC 100%);color:white;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;text-align:left;}
+.card-header-left{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.card-date{font-size:12px;opacity:0.85;}
+.card-product{font-size:14px;font-weight:600;}
+.card-header-right{display:flex;align-items:center;gap:6px;}
+.version-badge{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;}
+.version-badge.version{background:white;color:#5C1D82;}
+.version-badge.count{background:rgba(255,255,255,0.2);}
+.card-toggle{font-size:12px;margin-left:6px;transition:transform 0.2s;}
+.timeline-card.collapsed .card-toggle{transform:rotate(-90deg);}
+.timeline-card.collapsed .card-body{display:none;}
+.card-body{padding:16px;}
+.group-label{display:inline-block;margin-bottom:12px;padding:4px 10px;border-radius:12px;background:#F4EAF8;color:#6A238F;font-size:12px;font-weight:700;}
+.change-content{padding:10px 12px;background:#FAF7FC;border-left:3px solid #8C36AF;border-radius:4px;}
+.change-list{padding-left:22px;font-size:13px;color:#2c3e50;}
+.change-list li+li{margin-top:4px;}
+@media (max-width:768px){
+  body{padding:20px 10px;}
+  .timeline::before{left:16px;}
+  .timeline-item{width:100%;left:0!important;padding:8px 0 8px 40px;}
+  .timeline-item .timeline-dot{left:8px!important;right:auto!important;}
+  .header h1{font-size:22px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar" aria-label="Products">
+    <span class="nav-label">Products:</span>
+    <a href="LMAX.html" class="current">L MAX</a>
+    <a href="H1G2.html">H1 G2</a>
+    <a href="H3Pro.html">H3 PRO</a>
+    <a href="H3SMART.html">H3 SMART</a>
+    <a href="SMARTLOGGER.html">SMART LOGGER</a>
+    <a href="EQ.html">EQ</a>
+  </nav>
+  <header class="header">
+    <h1>L MAX Changelog</h1>
+    <div class="subtitle">Part 1 · PPM &amp; EVCC Firmware</div>
+    <div class="stats">
+      <div>📋 Total <strong id="record-count">44</strong> records</div>
+      <div>🛠️ <strong id="item-count">155</strong> update items</div>
+      <div>📅 2025-02-24 ~ 2026-08-07</div>
+    </div>
+    <div class="latest-versions" id="latest-versions" aria-label="Latest firmware versions"></div>
+  </header>
+  <div class="filter-bar">
+    <span class="label">Firmware:</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="ppm">PPM</button>
+    <button class="filter-btn" data-filter="evcc-single">EVCC Single-phase</button>
+    <button class="filter-btn" data-filter="evcc-three">EVCC Three-phase</button>
+  </div>
+  <main class="timeline" id="timeline"></main>
+</div>
+<script type="text/plain" id="changelog-source">
+Part 1 · L MAX
+
+1.1 L MAX PPM Firmware (Single/Three-phase MCU Board)
+
+Latest version: V1.03 (2026/8/7) — 12 items
+
+
+Fixed reservation handling BUG: validity check for single charge
+
+Fixed startup failure BUG: added MCU startup retry mechanism, 1s interval, 3 retries
+
+Added vehicle-side reservation switch. System parameter 18
+
+Optimized parameter change notification command logic: changed from "notify platform only" to "notify platform and Bluetooth"
+
+Optimized platform data processing: removed simultaneous detection of 'W' and 'M' in messages
+
+Optimized time zone function: local time no longer runs in standard UTC, but according to the set time zone's current time, supports automatic DST switching
+
+Optimized order generation logic: synchronous collection replaced with asynchronous collection
+
+Optimized memory processing: added IRAM optimization for WiFi data and FreeRTOS task processing
+
+Optimized runtime data processing speed: data timeout changed to 100ms
+
+Optimized charging behavior in stop state: supports starting in stop state under reservation mode
+
+Optimized upgrade process: extended upgrade package request period to 1 minute to avoid upgrade failures due to network fluctuations
+
+Optimized Ethernet event handling: no repeated login on link-down events
+
+
+V1.02 (2026/6/25) — 3 items
+
+
+Fixed BUG where deleted card info was not synced to flash after deletion
+
+Fixed modbus offline current BUG: after chip reset and re-power, set rated max current to offline current
+
+Optimized modbus data query misalignment: caused by extra signal release due to communication timeout
+
+
+V1.02 (2026/6/22) — 2 items
+
+
+Fixed memory optimization BUG: multiple parameter settings in offline mode caused memory overflow
+
+Added PLC adaptation functionality
+
+
+V1.89 (2026/6/18) — 2 items
+
+
+Optimized fault logs: removed PPM-EVCC communication logs, kept only restart-related logs; added EMS connect/disconnect logs
+
+Added restart function: if no EVCC data received within 2 minutes, restart EVCC; if still no data after 30s, PPM auto-restarts
+
+
+V1.99 (2026/6/16) — 1 item
+
+
+Added fault logs: PPM data receive and error logs
+
+
+V1.98 (2026/6/11) — 1 item
+
+
+Added communication logs: data packets between PPM and EVCC
+
+
+V1.97 — 1 item
+
+
+Added communication logs: data packets sent from PPM to EVCC
+
+
+V1.96 (2026/6/4) — 1 item
+
+
+Added upgrade logs between PPM and EVCC, based on V0.45
+
+
+V1.02 (2026/5/14) — 1 item
+
+
+Optimized program runtime memory: moved network data commands from IRAM to FLASH, sacrificing network data processing performance
+
+
+V1.01 (2026/5/13) — 1 item
+
+
+Optimized protocol compatibility: adapted all changes in protocol V3.02
+
+
+V1.01 (2026/5/9) — 2 items
+
+
+Optimized TCP-TLS connection stability: closed PPP, optimized reconnection after different network switches
+
+Optimized Modbus-TCP single/three-phase data processing: for single-phase chargers, returns error code 2 for unsupported registers
+
+
+V1.01 (2026/5/8) — 1 item
+
+
+Optimized multiple reconnection stability: opened PPP
+
+
+V1.01 (2026/5/6) — 5 items
+
+
+Fixed UK regulation test BUG: when crossing days, used UTC weekday parameter instead of local
+
+Fixed OCPP unstable connection BUG: caused by insufficient internal RAM leading to program crash
+
+Optimized DST handling in time zone: pre-set scheduled charging under set time zone
+
+Optimized modbus timeout handling: improved runtime data query timeout processing
+
+Optimized modbus sticky packet handling: now supports processing sticky packet data
+
+
+V1.95 (2026/4/27) — 2 items
+
+
+Optimized modbus timeout handling
+
+Optimized modbus sticky packet handling
+
+
+V1.01 (2026/4/16) — 4 items
+
+
+New: UK regulation and peak time period adaptation for all charging methods
+
+New: Time zone adaptation for all scheduled charging behaviors
+
+Optimized modbus command query timeout: from 5s to 1.5s
+
+Optimized modbus connection: rejected all other connections if one already exists
+
+
+V1.94 (2026/4/16) — 1 item
+
+
+Optimized Fox platform logs: supports viewing all data sent by charger to Modbus-TCP client
+
+
+V1.93 (2026/4/1) — 1 item
+
+
+Optimized Fox platform logs: supports viewing all data sent by Modbus-TCP client to charger
+
+
+V1.92 (2026/3/25) — 2 items
+
+
+Optimized modbus command query timeout: from 5s to 1.5s
+
+Added Fox platform logs: viewing runtime data query command data between PPM and EVCC
+
+
+V1.91 (2026/3/16) — 1 item
+
+
+Optimized modbus connection: rejected all other connections if one already exists
+
+
+V1.90 (2026/3/16) — 1 item
+
+
+Added Fox platform logs: supports viewing modbus working status logs
+
+
+V1.00 (2026/1/5) — 3 items
+
+
+New Modbus registers: 0x1048, 0x104A, 0x104C, 0x104E, 0x300E
+
+Optimized modbus gun status: aligned Fox gun status with Modbus-1.8 protocol
+
+Optimized network disconnect: prioritize disconnecting TCP before reconfiguring network, added device restart
+
+
+V0.46 (2025/12/19) — 3 items
+
+
+Added runtime parameters: INV total power, three-phase measurement power
+
+Added parameters: PE grounding detection (single-phase charger support)
+
+PV linkage timer add/query/clear and trigger
+
+
+V0.44 (2025/10/28) — 6 items
+
+
+Fixed network restart issue: program crash due to abnormal network restart
+
+Fixed Denmark card charging issue: failure to exit startup or reservation on fault during reservation
+
+Fixed OCPP parameter config: setting OCPP URL to empty caused connection failure and incorrect mode switching
+
+Optimized network status notification: reduced notification upload interval
+
+Optimized network module restart: occasional errors during repeated LAN/WiFi module restarts
+
+Optimized reservation start time: in delayed start, actual reservation start time is still the set time
+
+
+V0.03 (2025/4/8) — 4 items
+
+
+Compatible with W500 and DM9051
+
+Optimized network sticky packet data parsing
+
+Optimized reservation charging: doesn't start if not time-calibrated
+
+Fixed PPM abnormal restart BUG due to frequent network data packet processing
+
+
+V0.02 (2025/2/24) — 4 items
+
+
+Optimized concurrent runtime data query (modbus TCP/RTU, charging data, platform/Bluetooth query)
+
+Optimized parameter change notification: supports concurrent 5 parameter change notifications
+
+Optimized periodic timer: fixed issue when phone time is moved to next week, charging cannot stop after startup
+
+Replaced W5500 with DM9051
+
+
+
+1.2 L MAX EVCC Firmware (Single-phase MCU Board)
+
+Latest version: V1.90 (2026/7/15) — 1 item
+
+
+Disabled CP negative voltage anomaly detection for old hardware
+
+
+V1.02 (2026/7/15) — 1 item
+
+
+Added CP negative voltage anomaly detection function
+
+
+V1.01 (2026/7/8) — 3 items
+
+
+Optimized leakage current detection process
+
+Added leakage current module self-check process
+
+Fixed EVCC-PPM communication BUG
+
+
+V1.00 (2026/5/6) — 6 items
+
+
+Added PEN detection and off-peak charging function to adapt UK regulations
+
+Delayed state immediate startup when initiating charging
+
+Delayed state can be canceled via APP for immediate startup
+
+Added vehicle failure protection: if actual current exceeds threshold for 30s, reports overcurrent fault and stops charging
+
+Adapted INV direct-connect (CT direct) scheme: replace INV voltage with charger input voltage when INV voltage = 0
+
+Supports OCPP mode external meter upload frequency setting and Maitian cloud external meter data upload frequency setting
+
+
+V0.42 (2025/12/19) — 7 items
+
+
+Added PV linkage timer function, supports 8 time periods; within periods, handles in fast mode and sends real-time power to INV; outside periods, stops sending and INV clears to zero
+
+PV linkage boost: new fast boost (external meter current < -1A) and incremental boost (≥ -1A)
+
+Added PE detection switch configuration function
+
+Fixed BUG: incorrect stop reason reported when unplugging gun in start/delayed state
+
+Fixed BUG: smart temperature control load increase failure
+
+Preventively fixed BUG: scheduled start failure, reporting CP fault
+
+Preventively fixed BUG: fault information sync inconsistency
+
+
+V0.41 (2025/10/28) — 7 items
+
+
+Added meter data source configuration item, optimized meter data alarm process
+
+Fixed BUG: when PV linkage is on, meter offline, setting max charging current doesn't trigger 6A charging
+
+Fixed BUG: in INV direct PV linkage, during charging with battery discharging, meter offline, INV online, charger doesn't enter charging pause
+
+Fixed BUG: SN reset due to external FLASH read failure on power-up
+
+Fixed BUG: PV linkage economic mode enters pause before start
+
+Fixed BUG: in fast mode single-pile load balancing, when load unchanged but balance margin adjusted, PWM output doesn't change
+
+Fixed BUG: abnormal stop reason reported when unplugging gun during startup
+
+
+V0.01 (2025/2/24) — 13 items
+
+
+Temperature control uses max of three ambient temps
+
+Removed CP 3V state to avoid CP fault trigger failure during interop CP grounding
+
+Fixed BUG: card reader anomaly not alarmed
+
+Fixed BUG: abnormal state during startup can't stop machine
+
+Added relay sticking protection logic (triggers external leakage protection)
+
+Synchronized leakage current threshold to 40mA
+
+Added ATE query for charging stop reason
+
+Fixed abnormal overcurrent threshold mechanism
+
+Recalibrated BC phase voltage
+
+Fixed BUG: during single/three-phase switch wake-up, gun unplug stops
+
+Fixed BUG: incorrect relay during single-phase switch in three-phase mode
+
+Filtered current sampling values < 0.5A (= 0) to avoid sampling current at no-load
+
+Added voltage sampling average filter algorithm
+
+
+
+1.3 L MAX EVCC Firmware (Three-phase MCU Board)
+
+Latest version: V1.93 (2026/7/15) — 1 item
+
+
+Disabled CP negative voltage anomaly detection for old hardware
+
+
+V1.03 (2026/7/15) — 1 item
+
+
+Added negative CP voltage anomaly detection function
+
+
+V1.02 (2026/6/25) — 2 items
+
+
+Adapted PLC module
+
+Fixed EVCC-PPM communication BUG
+
+
+V1.92 (2026/6/24) — 1 item
+
+
+Fixed PA project EVCC-PPM communication issue
+
+
+V1.91 (2026/6/17) — 1 item
+
+
+Added PA communication issue troubleshooting logs
+
+
+V1.01 (2026/5/21) — 8 items
+
+
+Optimized leakage current detection process
+
+Added leakage current module self-check process
+
+Added PEN detection and off-peak charging function to adapt UK regulations
+
+Delayed state supports immediate startup
+
+Added SN data validity check function
+
+Added vehicle failure protection
+
+Adapted INV direct-connect (CT direct) scheme
+
+Optimized CP signal detection process
+
+
+V1.90 (2026/4/20) — 2 items
+
+
+Optimized leakage current detection process
+
+Added leakage current module self-check process
+
+
+V1.00 (2026/1/5) — 5 items
+
+
+External meter direct-connect supports 6CT Chint meter
+
+In pause state, if S2 is disconnected and conditions for resuming are met for >60s, charger enters vehicle pause state
+
+Supports new Modbus registers: real-time power (W) and max allowed power per session (W)
+
+Added PV linkage timer function (8 time periods)
+
+Fixed PV linkage BUGs
+
+
+V0.44 (2025/12/9) — 9 items
+
+
+PV linkage scheme now supports both three-phase and single-phase INV
+
+Fixed BUG: SN reset due to external FLASH read failure on power-up
+
+Added meter data source configuration item, optimized meter data alarm process
+
+Fixed BUG: incorrect stop reason when unplugging gun in start/delayed state
+
+Fixed BUG: smart temperature control load increase failure
+
+Fixed BUG: PV linkage on, meter offline, max current not triggering 6A charging
+
+Fixed BUG: INV direct PV linkage, charging pause logic not entering on battery discharge + meter offline + INV online
+
+Preventively fixed BUG: scheduled start failure, reporting CP fault
+
+Preventively fixed BUG: fault information sync inconsistency
+
+
+V0.43 (2025/11/25) — 2 items
+
+
+Fixed BUG: in Modbus single/three-phase switch, if charging ends before switch completes, switch state not cleared
+
+Fixed BUG: in Modbus single/three-phase switch, if switch interval not reached and reset to original phase, switch state not cleared
+
+
+V0.42 (2025/10/28) — 7 items
+
+
+Changed PV linkage pause-to-resume current threshold to 6.5A
+
+Fixed BUG: single-pile load balancing with meter anomaly, will pause-start-pause repeatedly
+
+Synchronized AEB 22KW second-round BUG fixes
+
+New: support three-phase PV direct-connect function, includes 485 interface and three-phase inverter communication
+
+Removed silent period logic, deprecated max action count parameter, modified min switch interval default and range, optimized PV linkage logic (consistent with AEB 22KW)
+
+Added parameters: site-level PV linkage switch, insufficient function 6A charge switch, battery max discharge power, external meter upload frequency, OCPP external meter upload frequency
+
+Added site-level PV linkage logic
+
+
+V0.01 (2025/4/8) — 13 items
+
+
+Temperature control uses max of three ambient temps
+
+Removed CP 3V state
+
+Fixed BUG: card reader anomaly not alarmed
+
+Fixed BUG: abnormal state during startup can't stop machine
+
+Added relay sticking protection logic
+
+Synchronized leakage current threshold to 40mA
+
+Added ATE query for charging stop reason
+
+Fixed abnormal overcurrent threshold mechanism
+
+Recalibrated BC phase voltage
+
+Fixed BUG: during single/three-phase switch wake-up, gun unplug stops
+
+Fixed BUG: incorrect relay during single-phase switch in three-phase mode
+
+Filtered current sampling values < 0.5A
+
+Added voltage sampling average filter algorithm
+</script>
+<script>
+const raw=document.getElementById('changelog-source').textContent.trim();
+const groupIds=['ppm','evcc-single','evcc-three'];
+const groupShortNames=['PPM · Single/Three-phase MCU','EVCC · Single-phase MCU','EVCC · Three-phase MCU'];
+
+function escapeHtml(value){
+  return value.replace(/[&<>"']/g,function(char){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char];});
+}
+
+function normalizeDate(value){
+  if(!value)return 'Date not specified';
+  const parts=value.split('/');
+  return parts[0]+'-'+parts[1].padStart(2,'0')+'-'+parts[2].padStart(2,'0');
+}
+
+function parseReleases(){
+  const sectionPattern=/^1[.]([123]) (.+)$/gm;
+  const sectionMatches=Array.from(raw.matchAll(sectionPattern));
+  const releases=[];
+  const groups=[];
+  sectionMatches.forEach(function(section,index){
+    const body=raw.slice(section.index+section[0].length,index+1<sectionMatches.length?sectionMatches[index+1].index:raw.length);
+    const versionPattern=/^(?:Latest version: )?(V[0-9.]+)(?: [(]([^)]*)[)])? . ([0-9]+) items?\s*$/gm;
+    const versionMatches=Array.from(body.matchAll(versionPattern));
+    const group={id:groupIds[index],name:section[2],shortName:groupShortNames[index],latest:versionMatches[0][1],latestDate:normalizeDate(versionMatches[0][2])};
+    groups.push(group);
+    versionMatches.forEach(function(version,versionIndex){
+      const contentStart=version.index+version[0].length;
+      const contentEnd=versionIndex+1<versionMatches.length?versionMatches[versionIndex+1].index:body.length;
+      const items=body.slice(contentStart,contentEnd).split(/\n+/).map(function(line){return line.trim();}).filter(Boolean);
+      const declaredCount=Number(version[3]);
+      if(items.length!==declaredCount)console.warn('Item count mismatch',group.id,version[1],declaredCount,items.length);
+      releases.push({group:group.id,groupName:group.shortName,version:version[1],date:normalizeDate(version[2]),items:items});
+    });
+  });
+  return {groups:groups,releases:releases};
+}
+
+const parsed=parseReleases();
+const timeline=document.getElementById('timeline');
+document.getElementById('record-count').textContent=parsed.releases.length;
+document.getElementById('item-count').textContent=parsed.releases.reduce(function(total,release){return total+release.items.length;},0);
+document.getElementById('latest-versions').innerHTML=parsed.groups.map(function(group){
+  return '<span>'+escapeHtml(group.shortName)+' '+group.latest+' · '+group.latestDate+'</span>';
+}).join('');
+
+function renderTimeline(filter){
+  const visible=filter==='all'?parsed.releases:parsed.releases.filter(function(release){return release.group===filter;});
+  timeline.innerHTML=visible.map(function(release,index){
+    const list=release.items.map(function(item){return '<li>'+escapeHtml(item)+'</li>';}).join('');
+    return '<article class="timeline-item '+(index%2===0?'left':'right')+'">'+
+      '<div class="timeline-dot"></div>'+
+      '<div class="timeline-card '+(index>=3?'collapsed':'')+'">'+
+        '<button class="card-header" type="button" aria-expanded="'+(index<3)+'" aria-label="Toggle '+escapeHtml(release.groupName)+' '+release.version+'">'+
+          '<span class="card-header-left"><span class="card-date">'+release.date+'</span><span class="card-product">'+escapeHtml(release.groupName)+'</span></span>'+
+          '<span class="card-header-right"><span class="version-badge version">'+release.version+'</span><span class="version-badge count">'+release.items.length+' items</span><span class="card-toggle">▼</span></span>'+
+        '</button>'+
+        '<div class="card-body"><span class="group-label">'+escapeHtml(release.groupName)+'</span><div class="change-content"><ol class="change-list">'+list+'</ol></div></div>'+
+      '</div>'+
+    '</article>';
+  }).join('');
+}
+
+timeline.addEventListener('click',function(event){
+  const header=event.target.closest('.card-header');
+  if(!header)return;
+  const card=header.closest('.timeline-card');
+  card.classList.toggle('collapsed');
+  header.setAttribute('aria-expanded',String(!card.classList.contains('collapsed')));
+});
+
+document.querySelector('.filter-bar').addEventListener('click',function(event){
+  const button=event.target.closest('.filter-btn');
+  if(!button)return;
+  document.querySelectorAll('.filter-btn').forEach(function(item){item.classList.remove('active');});
+  button.classList.add('active');
+  renderTimeline(button.dataset.filter);
+});
+
+renderTimeline('all');
+</script>
+</body>
+</html>
+
