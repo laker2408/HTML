@@ -88,12 +88,12 @@ button{font:inherit;}
     <div class="stats">
       <div>Total <strong id="record-count">0</strong> records</div>
       <div><strong id="item-count">0</strong> update items</div>
-      <div>2025-09 ~ 2026-07-18</div>
+      <div>2025-09 ~ 2026-08-17</div>
     </div>
     <div class="latest-versions" aria-label="Latest firmware versions">
-      <span>PPM V1.10</span>
-      <span>EVCC Three Phase V1.06</span>
-      <span>EVCC Single Phase V1.08</span>
+      <span>PPM V1.11</span>
+      <span>EVCC Three Phase V1.07</span>
+      <span>EVCC Single Phase V1.09</span>
     </div>
   </header>
   <div class="filter-bar">
@@ -108,7 +108,47 @@ button{font:inherit;}
 <script type="text/plain" id="changelog-source">
 A-E-B Firmware Releases
 
-2026/7/18 - A-E-B (Single/Three Phase) PPM V1.09 -> V1.10 (Latest PPM, 8 items)
+2026/8/17 - A-E-B (Single/Three Phase) PPM V1.10 -> V1.11 (Latest PPM, 4 items)
+
+
+Added system parameter: IANA time zone string.
+
+Optimized startup mechanism with retry logic: 1s interval, up to 3 retries.
+
+Optimized parameter change notification logic: notifications now sent to both platform and Bluetooth.
+
+Optimized time zone feature: local time runs according to configured time zone, with automatic daylight saving time support.
+
+
+2026/8/17 - A-E-B (Three phase) EVCC V1.06 -> V1.07 (Latest Three-Phase EVCC, 7 items)
+
+
+Added Austria grid standard support.
+
+Optimized alarm handling under RS485 wiring error scenarios.
+
+Optimized AC relay fault detection logic: fault trigger detection only active during relay action, fault recovery detection unrestricted.
+
+Added time zone and other parameter configuration in ATE mode.
+
+Added CP negative voltage anomaly detection.
+
+Optimized communication stability between charging controller modules.
+
+Added vehicle reservation configuration function.
+
+
+2026/8/17 - A-E-B (Single phase) EVCC V1.08 -> V1.09 (Latest Single-Phase EVCC, 3 items)
+
+
+Optimized negative CP voltage sampling logic.
+
+Added time zone and other parameter configuration in ATE mode.
+
+Optimized alarm handling under RS485 wiring error scenarios.
+
+
+2026/7/18 - A-E-B (Single/Three Phase) PPM V1.09 -> V1.10 (8 items)
 
 
 Optimized network status notification (handling WiFi incorrect connection scenarios).
@@ -128,7 +168,7 @@ Added operating data information.
 Added system parameter battery_drain_prevention.
 
 
-2026/7/18 - A-E-B (Three phase) EVCC V1.04 -> V1.06 (Latest Three-Phase EVCC, 4 items)
+2026/7/18 - A-E-B (Three phase) EVCC V1.04 -> V1.06 (4 items)
 
 
 Adjusted PEN over/under-voltage thresholds to 262.2V and 207V.
@@ -140,7 +180,7 @@ Optimized EVCC-PPM communication.
 Added vehicle-side reservation configuration.
 
 
-2026/7/18 - A-E-B (Single phase) EVCC V1.07 -> V1.08 (Latest Single-Phase EVCC, 3 items)
+2026/7/18 - A-E-B (Single phase) EVCC V1.07 -> V1.08 (3 items)
 
 
 Added CP negative voltage abnormality detection.

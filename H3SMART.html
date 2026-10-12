@@ -79,8 +79,8 @@ body{font-family:-apple-system,"Segoe UI",sans-serif;background:linear-gradient(
     <h1>H3 SMART Changelog</h1>
     <div class="subtitle">Product Changelog Timeline</div>
     <div class="stats">
-      <div>📋 Total <strong>20</strong> records</div>
-      <div>📅 2025-05-06 ~ 2026-07-14</div>
+      <div>📋 Total <strong>22</strong> records</div>
+      <div>📅 2025-05-06 ~ 2026-08-18</div>
     </div>
   </div>
   <div class="filter-bar">
@@ -88,6 +88,70 @@ body{font-family:-apple-system,"Segoe UI",sans-serif;background:linear-gradient(
     <button class="filter-btn active" onclick="filterProduct(this,'all')">All</button><button class="filter-btn" onclick="filterProduct(this,'H3_G2_Master')">H3_G2_Master</button><button class="filter-btn" onclick="filterProduct(this,'H3_G2_Manager')">H3_G2_Manager</button>
   </div>
   <div class="timeline" id="timeline">
+    <div class="timeline-item left" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-08-18</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.47</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.49</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added Philippine delta grid safety regulation.<br>2. Optimized all-in-one stacked inverter bypass power limit: now limited by the maximum input current.<br>3. Optimized AFCI upgrade interruption handling.<br>4. Added Hot Standby function.<br>5. Added global MPPT search function.<br>6. Optimized global MPPT scanning in off-grid mode.<br>7. Optimized apparent power reporting.<br>8. Added reactive power enable/disable control in time-of-use schedule, and updated reactive power positive direction definition.<br>9. Optimized remote control: continues to receive remote power setpoints after enable flag is cleared.</div>
+            </div>
+            <div class="change-content cust">
+              <div class="change-text">1. Added Philippine delta grid safety regulation.<br>2. Optimized all-in-one stacked inverter bypass power limit: now limited by the maximum input current.<br>3. Optimized AFCI upgrade interruption handling.<br>4. Added Hot Standby function.<br>5. Added global MPPT search function.<br>6. Optimized global MPPT scanning in off-grid mode.<br>7. Optimized apparent power reporting.<br>8. Added reactive power enable/disable control in time-of-use schedule, and updated reactive power positive direction definition.<br>9. Optimized remote control: continues to receive remote power setpoints after enable flag is cleared.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item right" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-08-18</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.29</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.31</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added reactive power enable bit in platform-side time-of-use extended parameters; when disabled, reactive power follows default safety regulation.<br>2. Added grid import energy limit function in forced charge mode (AC+BAT) under platform-side time-of-use extended parameter 2 (effective when meter 1 is enabled).<br>3. Added battery data transparent transmission to platform in packet.<br>4. Added fault status identification for fault7-fault14 in battery protocol V1.50; inverter reports BMS Warning when faults are detected.<br>5. Added Hungarian language to local UI.<br>6. Added Standby Mode control in platform-side basic parameter 2: Disable + Hot Standby + Cold Standby.<br>7. Added global MPPT shadow scan function.<br>8. Battery synchronized power on/off with system on/off setting.<br>9. Added AFCI enable switch in local UI (Setting → Feature → AFCI).<br>10. Added meter 1 energy transparent transmission (total energy + net energy) and meter model in platform-side 0x02 packet.<br>11. Added inverter-side power factor in platform-side 0x02 packet.<br>12. Optimized meter 2 energy data transparent transmission: energy data remains unchanged when meter is disabled.<br>13. Optimized CT error reporting when meter is disabled under G100 function.<br>14. Optimized handling of Master staying in detection state after Manager upgrade and restart during meter detection; added forced exit mechanism.<br>15. Optimized power setting range in time-of-use extended parameters.<br>16. Optimized time-of-use cutoff energy function: does not enter Standby after reaching cutoff energy.<br>17. Optimized reporting positions of meter 1 forward net energy and reverse total energy in real-time 0x02 packet.</div>
+            </div>
+            <div class="change-content cust">
+              <div class="change-text">1. Added reactive power enable bit in platform-side time-of-use extended parameters; when disabled, reactive power follows default safety regulation.<br>2. Added grid import energy limit function in forced charge mode (AC+BAT) under platform-side time-of-use extended parameter 2 (effective when meter 1 is enabled).<br>3. Added battery data transparent transmission to platform in packet.<br>4. Added fault status identification for fault7-fault14 in battery protocol V1.50; inverter reports BMS Warning when faults are detected.<br>5. Added Hungarian language to local UI.<br>6. Added Standby Mode control in platform-side basic parameter 2: Disable + Hot Standby + Cold Standby.<br>7. Added global MPPT shadow scan function.<br>8. Battery synchronized power on/off with system on/off setting.<br>9. Added AFCI enable switch in local UI (Setting → Feature → AFCI).<br>10. Added meter 1 energy transparent transmission (total energy + net energy) and meter model in platform-side 0x02 packet.<br>11. Added inverter-side power factor in platform-side 0x02 packet.<br>12. Optimized meter 2 energy data transparent transmission: energy data remains unchanged when meter is disabled.<br>13. Optimized CT error reporting when meter is disabled under G100 function.<br>14. Optimized handling of Master staying in detection state after Manager upgrade and restart during meter detection; added forced exit mechanism.<br>15. Optimized power setting range in time-of-use extended parameters.<br>16. Optimized time-of-use cutoff energy function: does not enter Standby after reaching cutoff energy.<br>17. Optimized reporting positions of meter 1 forward net energy and reverse total energy in real-time 0x02 packet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="timeline-item left" data-product="H3_G2_Master">
       <div class="timeline-dot"></div>
       <div class="timeline-card">

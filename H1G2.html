@@ -79,11 +79,11 @@ button{font:inherit;}
     <h1>H1 G2 Changelog</h1>
     <div class="subtitle">Product Changelog Timeline</div>
     <div class="stats">
-      <div>📋 Total <strong>23</strong> records</div>
-      <div>📅 2025-04-30 ~ 2026-06-05</div>
+      <div>📋 Total <strong>26</strong> records</div>
+      <div>📅 2025-04-30 ~ 2026-08-19</div>
     </div>
     <div class="latest-versions" aria-label="Latest firmware versions">
-      <span>Master V1.57</span><span>Manager V1.76</span><span>Slave V1.04</span>
+      <span>Master V1.59</span><span>Manager V1.79</span><span>Slave V1.04</span>
     </div>
   </header>
   <div class="filter-bar">
@@ -97,6 +97,39 @@ button{font:inherit;}
 </div>
 <script>
 const releases=[
+  {date:'2026-08-19',product:'H1-G2_Manager',old:'V1.78',new:'V1.79',items:[
+    'Added time-segmented charging energy limit function (per KH Single-Phase Energy Storage Remote Monitoring Protocol VK1.20.00). New in Additional Parameters 2: Time X Forced Import From Grid Enable; Time X Forced Import From Grid Cap; Time X Current Import From Grid Energy; Time X Work Mode for the Second Option adds value 0: Standby (the inverter neither charges nor discharges, holding the state reached at the cut-off SOC).'
+  ]},
+  {date:'2026-07-30',product:'H1-G2_Master',old:'V1.57',new:'V1.59',items:[
+    'Added PV-storage linkage for EV chargers.',
+    'Optimized Peak Shaving logic.',
+    'Optimized battery fault handling logic.',
+    'Optimized rectifier bridge relay closing logic.',
+    'Optimized EPS-PF logic.',
+    'Added reactive power dispatch switch in remote scheduling.',
+    'Optimized rectifier bridge zero-crossing closing control.',
+    'Optimized reactive power enable logic for remote scheduling.',
+    'Optimized overload and voltage abnormality handling logic.',
+    'Optimized power factor display compensation.',
+    'Load Limit and Generate Limit parameters now apply under Australian grid code requirements.'
+  ]},
+  {date:'2026-07-30',product:'H1-G2_Manager',old:'V1.76',new:'V1.78',items:[
+    'Optimized platform reading after setting Hungarian language.',
+    'Added PV linkage for EV chargers.',
+    'Added power factor reporting.',
+    'Updated 5-second energy flow diagram protocol.',
+    'Optimized BMS lost indicator flashing.',
+    'Meter auto-adaptation now supports NG380.',
+    'Renamed \'Bat Volt Fault\' to \'Bat Volt Warning\'.',
+    'Optimized time-of-use charging mode exit behavior.',
+    'Optimized meter behavior when set to disabled (no meter or CT data will be used).',
+    'Added reactive power enable in time-of-use parameters.',
+    'Optimized Standby mode.',
+    'Optimized read/write for external protocol register 49136.',
+    'Optimized energy flow diagram in PV-EPS mode.',
+    'Updated Hungarian language terms.',
+    'Optimized Meter3 reading strategy on startup.'
+  ]},
   {date:'2026-06-05',product:'H1-G2_Master',old:'V1.55',new:'V1.57',items:[
     'Added LoRa meter support.',
     'Added ANU power limitation and fan speed control functions.',
