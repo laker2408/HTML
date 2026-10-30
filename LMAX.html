@@ -87,12 +87,12 @@ button{font:inherit;}
     <div class="stats">
       <div>Total <strong id="record-count">0</strong> records</div>
       <div><strong id="item-count">0</strong> update items</div>
-      <div>Last updated: <strong>2026-07-21</strong></div>
+      <div>Last updated: <strong>2026-10-30</strong></div>
     </div>
     <div class="latest-versions" aria-label="Latest firmware versions">
-      <span>PPM V1.02</span>
+      <span>PPM V1.03</span>
       <span>EVCC Single Phase V1.01</span>
-      <span>EVCC Three Phase V1.02</span>
+      <span>EVCC Three Phase V1.04</span>
     </div>
     <div class="subtitle" style="margin-top:12px">Earlier version changes are hidden.</div>
   </header>
@@ -108,9 +108,55 @@ button{font:inherit;}
 <script type="text/plain" id="changelog-source">
 Part 1 - L MAX
 
-Current latest version: PPM 1.02 / EVCC Single Phase 1.01 / EVCC Three Phase 1.02 (Last updated 2026/7/21; earlier version changes are hidden)
+Current latest version: PPM 1.03 / EVCC Single Phase 1.01 / EVCC Three Phase 1.04 (Last updated 2026/10/30; earlier version changes are hidden)
 
 L MAX Firmware Releases
+
+2026/10/13 - L MAX (Three Phase) EVCC V1.02 -> V1.04 (Latest Three-Phase EVCC, 9 items)
+
+
+Added fault classification for leakage current detection, distinguishing between self-test faults and runtime faults.
+
+Optimized charger adaptation for 1-phase and 3-phase wiring, and adjusted the single/three-phase switch configuration item.
+
+Added vehicle-side scheduling configuration function.
+
+Optimized ATE mode to support configuration of time zone and other parameters.
+
+Optimized AC relay fault detection process.
+
+Optimized handling of massive external meter and inverter alarms triggered by incorrect RS485 wiring of the charger.
+
+Added log output support to the Maitian cloud.
+
+Optimized compatibility between new and old hardware versions.
+
+Added configuration item for designated meter data source, adapted to Denmark PV linkage, and supports 5S power flow diagram data upload.
+
+
+2026/10/13 - L MAX (Single/Three Phase) PPM V1.02 -> V1.03 (Latest PPM, 10 items)
+
+
+Optimized scheduled charging logic, improving single-charge validity judgment.
+
+Optimized startup failure handling.
+
+Added vehicle-side charging reservation switch function.
+
+Added operation log function, uploading content differentiated by log level.
+
+Added inverter TCP connection function.
+
+Optimized parameter change notification logic: notifications now sent to both cloud platform and Bluetooth.
+
+Optimized time zone function: local time runs according to the configured time zone, with automatic DST switching.
+
+Optimized charging behavior in stopped state: supports starting charging from stopped state in reservation mode.
+
+Optimized upgrade stability.
+
+Optimized operation mode logic: supports switching operation modes during charging or upgrade process.
+
 
 2026/7/16 - L MAX (Single Phase) EVCC V1.00 -> V1.01 (Latest Single-Phase EVCC, 3 items)
 
@@ -122,7 +168,7 @@ Added leakage current module self-check.
 Optimized EVCC-PPM communication.
 
 
-2026/7/14 - L MAX (Three Phase) EVCC V1.01 -> V1.02 (Latest Three-Phase EVCC, 2 items)
+2026/7/14 - L MAX (Three Phase) EVCC V1.01 -> V1.02 (2 items)
 
 
 Added PLC module adaptation.
@@ -130,7 +176,7 @@ Added PLC module adaptation.
 Optimized EVCC-PPM communication.
 
 
-2026/7/14 - L MAX (Single/Three Phase) PPM V1.01 -> V1.02 (Latest PPM, 5 items)
+2026/7/14 - L MAX (Single/Three Phase) PPM V1.01 -> V1.02 (5 items)
 
 
 Optimized card deletion process.

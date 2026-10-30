@@ -79,8 +79,8 @@ body{font-family:-apple-system,"Segoe UI",sans-serif;background:linear-gradient(
     <h1>H3 SMART Changelog</h1>
     <div class="subtitle">Product Changelog Timeline</div>
     <div class="stats">
-      <div>📋 Total <strong>22</strong> records</div>
-      <div>📅 2025-05-06 ~ 2026-08-18</div>
+      <div>📋 Total <strong>24</strong> records</div>
+      <div>📅 2025-05-06 ~ 2026-10-21</div>
     </div>
   </div>
   <div class="filter-bar">
@@ -88,6 +88,70 @@ body{font-family:-apple-system,"Segoe UI",sans-serif;background:linear-gradient(
     <button class="filter-btn active" onclick="filterProduct(this,'all')">All</button><button class="filter-btn" onclick="filterProduct(this,'H3_G2_Master')">H3_G2_Master</button><button class="filter-btn" onclick="filterProduct(this,'H3_G2_Manager')">H3_G2_Manager</button>
   </div>
   <div class="timeline" id="timeline">
+    <div class="timeline-item left" data-product="H3_G2_Master">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-10-21</div>
+            <div class="card-product">H3_G2_Master</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.49</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.51</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added AirGate feature.<br>2. Optimized EPS AC-couple functionality in AirGate mode.<br>3. Added default EPS-PF enablement under AirGate mode.<br>4. Added parallel operation feature integrating Smart fast-switch and slow-switch versions.</div>
+            </div>
+            <div class="change-content cust">
+              <div class="change-text">1. Added AirGate feature.<br>2. Optimized EPS AC-couple functionality in AirGate mode.<br>3. Added default EPS-PF enablement under AirGate mode.<br>4. Added parallel operation feature integrating Smart fast-switch and slow-switch versions.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item right" data-product="H3_G2_Manager">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <div class="card-date">2026-10-21</div>
+            <div class="card-product">H3_G2_Manager</div>
+          </div>
+          <div class="card-header-right">
+            <span class="version-badge old">V1.31</span>
+            <span class="version-arrow">→</span>
+            <span class="version-badge new">V1.33</span>
+            <span class="card-toggle">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="change-section">
+            <div class="change-tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'ka')">Key Account</button>
+              <button class="tab-btn" onclick="switchTab(this,'cust')">Customer</button>
+            </div>
+            <div class="change-content ka active">
+              <div class="change-text">1. Added AirGate meter functionality, supporting cloud platform AirGate data upload, local and platform upgrade, and 6CT self-adaptation.<br>2. Updated 5S flow diagram to Fast Flow Diagram Protocol V1.4, supporting AirGate switch status and system status upload.<br>3. Local UI now synchronizes AirGate system off status display.<br>4. Added AirGate power line fault alarm function.<br>5. Optimized flow diagram display in EPS mode under AirGate connection.<br>6. Added delta configuration model, supporting 3CT meter self-adaptation.<br>7. Added P3 series models; Eastern Europe version now supports Philippines, Austria, and Slovakia grid codes.<br>8. Removed inverter on/off synchronization with battery on/off function.<br>9. Added local MPPT Scan function, path: Setting → Feature → ShowScan.<br>10. Optimized meter communication logic.<br>11. Optimized external data collector online response speed.<br>12. Added European version AirGate type identification.<br>13. Optimized AirGate USB upgrade prompt during grid power outage, displaying &quot;AG NO GRID POWER&quot; and prohibiting upgrade.<br>14. Optimized the 3CT self-check function under delta grid configuration.<br>15. Optimized AirGate logic: when meter enable is off, AirGate switch control is not affected by the inverter.<br>16. Optimized AirGate communication loss alarm logic.<br>17. Optimized maximum AirGate reset wait time during USB upgrade to 1 minute.</div>
+            </div>
+            <div class="change-content cust">
+              <div class="change-text">1. Added AirGate meter functionality, supporting cloud platform AirGate data upload, local and platform upgrade, and 6CT self-adaptation.<br>2. Updated 5S flow diagram to Fast Flow Diagram Protocol V1.4, supporting AirGate switch status and system status upload.<br>3. Local UI now synchronizes AirGate system off status display.<br>4. Added AirGate power line fault alarm function.<br>5. Optimized flow diagram display in EPS mode under AirGate connection.<br>6. Added delta configuration model, supporting 3CT meter self-adaptation.<br>7. Added P3 series models; Eastern Europe version now supports Philippines, Austria, and Slovakia grid codes.<br>8. Removed inverter on/off synchronization with battery on/off function.<br>9. Added local MPPT Scan function, path: Setting → Feature → ShowScan.<br>10. Optimized meter communication logic.<br>11. Optimized external data collector online response speed.<br>12. Added European version AirGate type identification.<br>13. Optimized AirGate USB upgrade prompt during grid power outage, displaying &quot;AG NO GRID POWER&quot; and prohibiting upgrade.<br>14. Optimized the 3CT self-check function under delta grid configuration.<br>15. Optimized AirGate logic: when meter enable is off, AirGate switch control is not affected by the inverter.<br>16. Optimized AirGate communication loss alarm logic.<br>17. Optimized maximum AirGate reset wait time during USB upgrade to 1 minute.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="timeline-item left" data-product="H3_G2_Master">
       <div class="timeline-dot"></div>
       <div class="timeline-card">
